@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Display</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 导航 -->
+    <div class="nav">
+        <nav class="navbar navbar-fixed-top navbar-inverse">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li><a href="start.html">首页</a></li>
+                    <li class="active"><a href="#">关于</a></li>
+                    <li><a href="about.html">其他</a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control searchtext" placeholder="search...">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" name="button">搜索<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">google</a></li>
+                                <li><a href="#">百度</a></li>
+                                <li><a href="#">Bing</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">DuckGo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </nav>
+    </div>
+    <!-- 并列——栅格布局 -->
+    <div class="display container-fluid">
+        <div class="row" style="width:100%">
+            <!-- 左侧主要内容-->
+            <div class="col-md-9">
+                <div class="page-header">
+                    <h1>梦想科技<small>专注前端发展</small></h1>
+                </div>
+                <blockquote>
+                    <p>最高的性价比换取最优质的服务</p>
+                    <footer>—Source from<cite> Someone</cite> </footer>
+                </blockquote>
+                <p><strong>产品特点</strong></p>
+                <p><mark>产品特征是产品自身构造所形成的特色，</mark>一般指产品的外形、质量、功能、商标和包装等，它能反映产品对顾客的吸引力。<del>产品特征是影响消费者认知、情感和行为的主要刺激物。</del>这些特征是凭借消费者自身具有的<ins>价值观、信仰和过去的经验</ins>来评价的。</p>
+                <br>
+                <p><strong>产品介绍</strong></p>
+                <p>产品简介是产品介绍中最为关键的部分，也是说明产品是什么的部分。</p>
+                <div class="text-center">
+                    <img src="assets/display 1.jpg" alt="">
+                    <img src="assets/display 2.jpg" alt="">
+                    <img src="assets/display 3.jpg" alt="">
+                </div>
+                <p>Bootstrap是现在最流行的前端开发框架。</p>
+                <p>本页面采用了<code>nav</code>、<code>carousel</code>、<code>row</code>等标签。</p>
+                <p>
+                    例如
+                    <pre>
+                        &lt;div class="row" style="width:100%"&gt;
+                            &lt;!-- 左侧主要内容--&gt;
+                            &lt;div class="col-md-9"&gt;
+                                &lt;div class="page-header"&gt;
+                                    &lt;h1&gt;梦想科技&lt;small&gt;专注有价值的信息&lt;/small&gt;&lt;/h1&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    </pre>
+                </p>
+                <p class="text-center">
+                    <button type="button" name="button" class="btn btn-primary btn-xs">顶</button>
+                    <button type="button" name="button" class="btn btn-danger btn-lg">踩</button>
+                </p>
+            </div>
+            <!-- 右侧信息栏 -->
+            <div class="col-md-3 explanation">
+                <img src="assets/head.jpg" alt="" class="img-circle">
+                <div class="display-msg">
+                    <h2>相关信息</h2>
+                    <ul class="list-unstyled">
+                        <li>怒放的生命</li>
+                        <li>就象矗立在彩虹之颠</li>
+                        <li>就象穿行璀璨的星河</li>
+                        <li>拥有超越平凡的力量</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/search.js"></script>
+
+</body>
+
+</html>

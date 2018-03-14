@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>选项卡轮播</title>
+
+    <link rel="stylesheet" href="../skeleton.css">
+
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            padding: 30px;
+            padding-bottom: 0px;
+            width: 800px;
+            height: 530px;
+            margin: 0 auto;
+            border: 1px solid #ccc3c3;
+        }
+
+        .left {
+            float: left;
+        }
+
+        img {
+            transform: scale(1);
+            position: absolute;
+        }
+
+        .right {
+            float: right;
+            padding-right: 80px;
+        }
+
+        ul {
+            position: absolute;
+            width: 100px;
+            text-align: center;
+
+        }
+
+        li {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        li a {
+            color: black;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 0 30px;
+            color: black;
+        }
+
+        .top {
+            text-align: center;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="top">
+            <a href="#" class="boy">男装</a>
+            <a href="#" class="girl">女装</a>
+        </div>
+
+        <div class="left">
+            <img src="5-1.jpg" alt="">
+            <img src="5-2.jpg" alt="">
+            <img src="5-3.jpg" alt="">
+            <img src="5-4.jpg" alt="">
+            <img src="5-5.jpg" alt="">
+            <img src="5-6.jpg" alt="">
+        </div>
+
+        <div class="right">
+            <ul>
+                <li>男a</li>
+                <li>男b</li>
+                <li>男c</li>
+            </ul>
+            <ul style="display:none">
+                <li>女a</li>
+                <li>女b</li>
+                <li>女c</li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var $ = function selector(element) {
+            var sign = element.charAt(0),
+                rlt = element.substr(1);
+            switch (sign) {
+                case '#':
+                    return document.getElementById(rlt);
+                    break;
+                case '.':
+                    return document.getElementsByClassName(rlt);
+                    break;
+                case '@':
+                    return document.getElementsByTagName(rlt);
+                    break;
+                default:
+                    alert('无法使用选择器函数');
+            }
+        }
+
+        var boy = $('@a')[0],
+            girl = $('@a')[1],
+            top = $('#top'),
+            boy_ul = $('@ul')[0],
+            girl_ul = $('@ul')[1],
+            li = $('@li'),
+            img = $('@img'),
+            t_boy = 0,
+            t_girl = 0;
+
+        for (var i = 1; i < img.length; i++) {
+            img[i].style.display = 'none';
+        };
+
+        for (var i = 0; i < li.length; i++) {
+            li[i].className = 'li_' + i;
+        }
+        window.onload = function() {
+            boy.style.backgroundColor = '#44c9d0';
+            li[0].style.backgroundColor = 'grey';
+            girl_ul.style.display = 'none';
+            boy_ul.style.display = 'block';
+            var count = 0;
+            clearInterval(t_girl);
+            t = setInterval(function functionName() {
+                if (count == 6) {
+                    count = 0
+                };
+                if (count == 0) {
+                    boy_ul.style.display = 'block';
+                    girl_ul.style.display = 'none';
+                    boy.style.backgroundColor = '#44c9d0';
+                    girl.style.backgroundColor = 'transparent';
+                }
+                if (count == 3) {
+                    boy_ul.style.display = 'none';
+                    girl_ul.style.display = 'block';
+                    girl.style.backgroundColor = '#44c9d0';
+                    boy.style.backgroundColor = 'transparent';
+                }
+                for (var i = 0; i < 6; i++) {
+                    img[i].style.display = 'none';
+                    li[i].style.backgroundColor = 'transparent';
+                };
+                img[count].style.display = 'block';
+                li[count].style.backgroundColor = 'grey';
+                count++;
+            }, 1000)
+
+            //顶部点击事件
+            top.addEventListener('click', function(e) {
+                switch (e.target.className) {
+                    case 'boy':
+                        count = 0
+                        break;
+                    case 'girl':
+                        count = 3
+                        break;
+                    default:
+                        null;
+                }
+            })
+
+            //右侧点击事件
+            for (var i = 0; i < li.length; i++) {
+                li[i].addEventListener('click', function(e) {
+                    count = e.target.className.charAt(3)
+                })
+            };
+        }
+    </script>
+</body>
+
+</html>

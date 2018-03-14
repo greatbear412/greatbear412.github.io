@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>About</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="nav">
+        <nav class="navbar navbar-fixed-top navbar-inverse">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li><a href="start.html">首页</a></li>
+                    <li><a href="case.html">关于</a></li>
+                    <li class="active"><a href="#">其他</a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control searchtext" placeholder="search...">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" name="button">搜索<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">google</a></li>
+                                <li><a href="#">百度</a></li>
+                                <li><a href="#">Bing</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">DuckGo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </nav>
+    </div>
+
+    <div class="container about">
+        <div class="text-center">
+            <h2>建议</h2>
+        </div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="name" class="control-label col-md-4">姓名</label>
+                <div class="col-md-4">
+                    <input type="text" id="name" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4">称呼</label>
+                <div class="col-md-4 gender">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" checked />先生
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" />女士
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="job" class="control-label col-md-4">你的职位</label>
+                <div class="col-md-4">
+                    <select name="" id="job" class="form-control">
+                        <option value="">大哥</option>
+                        <option value="">二哥</option>
+                        <option value="">三哥</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">业余时间最喜欢哪项活动</label>
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" checked>敲代码
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">打球
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">看比赛
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">发呆
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="control-label col-md-4">更多建议</br>（请不要超过500个字）</label>
+                <label for=""></label>
+                <div class="col-md-4">
+                    <textarea rows="8" cols="" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group  ">
+                <label class="control-label col-md-4"></label>
+                <div class="col-md-4 text-center">
+                    <button class="btn btn-primary smtbtn">提交</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="call text-center">
+            <h2>联系方式</h2>
+            <address class="">
+            <strong>天津市滨海新区</strong><br>
+            <span>河北路河西路河东路没有河南路。</span><br>
+            <abbr title="Call me">联系方式</abbr><span>18649009827</span>
+            </address>
+        </div>
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/search.js"></script>
+</body>
+
+</html>

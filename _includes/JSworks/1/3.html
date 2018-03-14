@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>文本自动滚动</title>
+
+    <link rel="stylesheet" href="../skeleton.css">
+    <style media="screen">
+        div {
+            margin: 200px auto 0 auto;
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .divsub {
+            margin: 50px auto;
+            width: 500px;
+            border: 1px solid #000;
+            height: auto;
+            padding: 20px;
+        }
+
+        span {
+            white-space: nowrap;
+        }
+
+        ul {
+            margin-top: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        input {
+            width: 500px;
+            display: block;
+            margin: 80px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="divon">
+        <ul style="margin-top:0">
+            <li>大江东去，浪淘尽，千古风流人物。</li>
+            <li>故垒西边，人道是，三国周郎赤壁。</li>
+            <li>乱石穿空，惊涛拍岸，卷起千堆雪。</li>
+            <li>江山如画，一时多少豪杰。</li>
+            <li>遥想公瑾当年，小乔初嫁了，雄姿英发。</li>
+            <li>羽扇纶巾，谈笑间，樯橹灰飞烟灭。</li>
+            <li>故国神游，多情应笑我，早生华发。</li>
+            <li>生如梦，一尊还酹江月。</li>
+        </ul>
+    </div>
+
+    <div class="divsub">
+        <span></span>
+    </div>
+
+    <script type="text/javascript">
+        var ul = document.getElementsByTagName('ul')[0],
+            lis = document.getElementsByTagName('li'),
+            substitute;
+
+        function startMoveUl() {
+
+            ul.style.marginTop = (parseInt(ul.style.marginTop) - 4) + 'px';
+
+            if (ul.style.marginTop == '-40px') {
+                for (var i = 0, len = lis.length; i < len; i++) {
+                    if (i == 0) substitute = lis[i].innerHTML;
+                    if (i == len - 1) {
+                        lis[i].innerHTML = substitute;
+                        break
+                    }
+                    lis[i].innerHTML = lis[i + 1].innerHTML
+                }
+                ul.style.marginTop = 0
+            };
+        };
+        setInterval('startMoveUl()', 200);
+
+        var span = document.getElementsByTagName('span')[0],
+            divsub = document.getElementsByClassName('divsub')[0],
+            collection = '';
+        for (var i = 0; i < 2; i++) {
+            collection += lis[i].innerHTML + ' '
+        }
+        span.innerHTML = collection;
+
+        function startMoveSpan() {
+            span.style.marginLeft = (parseInt(span.style.marginLeft) - 5) + 'px';
+            if (parseInt(span.style.marginLeft) + span.offsetWidth <= -50) {
+                span.style.marginLeft = divsub.clientWidth + 'px';
+            }
+        }
+
+        (function() {
+            span.style.marginLeft = divsub.clientWidth + 'px';
+            setInterval('startMoveSpan()', 100);
+        })()
+    </script>
+</body>
+
+</html>

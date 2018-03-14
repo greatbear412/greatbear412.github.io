@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>拖动滑块验证</title>
+
+    <link rel="stylesheet" href="../skeleton.css">
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            position: relative;
+            width: 300px;
+            margin: 100px auto;
+            background: grey;
+            height: 34px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        img {
+            position: absolute;
+            left: 0;
+            display: inline-block;
+            border: 1px solid rgb(220, 220, 220);
+            cursor: move;
+        }
+
+        .cover {
+            display: inline-block;
+            height: 34px;
+            width: 257px;
+            position: absolute;
+            left: -257px;
+            background-color: rgb(122, 194, 60);
+        }
+
+        .text {
+            display: inline-block;
+            position: absolute;
+            transform: translate(-50%, 25%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <span class="cover"></span>
+        <img src="7-1.jpg" alt="">
+        <span class="text">拖动滑块验证</span>
+    </div>
+
+    <script type="text/javascript">
+        var $ = function selector(element) {
+            var sign = element.charAt(0),
+                rlt = element.substr(1);
+            switch (sign) {
+                case '#':
+                    return document.getElementById(rlt);
+                    break;
+                case '.':
+                    return document.getElementsByClassName(rlt);
+                    break;
+                case '@':
+                    return document.getElementsByTagName(rlt);
+                    break;
+                default:
+                    alert('无法使用选择器函数');
+            }
+        }
+
+        var cover = $('.cover')[0],
+            btn = $('@img')[0],
+            text = $('.text')[0],
+            mouse = false,
+            test = $('.test')[0];
+
+        btn.onmousedown = function(e) {
+            currentX = e.clientX;
+            currentImg = btn.offsetLeft;
+            currentCover = cover.offsetLeft;
+            console.log(currentImg, currentCover);
+            mouse = true;
+            e.preventDefault();
+        }
+
+        document.onmousemove = function(e) {
+            if (mouse) {
+                dis = e.clientX - currentX;
+                var dis_cover = currentCover + dis;
+                if (dis_cover > 0) {
+                    dis_cover = 0
+                };
+                if (dis_cover < -257) {
+                    dis_cover = -257
+                };
+                cover.style.left = dis_cover + 'px';
+
+                var dis_btn = currentImg + dis;
+                if (dis_btn > 257) {
+                    dis_btn = 257
+                };
+                if (dis_btn < 0) {
+                    dis_btn = 0
+                };
+                btn.style.left = dis_btn + 'px';
+            }
+            if (btn.offsetLeft >= 257) {
+                btn.src = '7-2.jpg';
+                btn.onmousedown = function() {
+                    return false
+                };
+                document.onmousemove = null;
+                e.preventDefault();
+            }
+            document.onmouseup = function(e) {
+                mouse = false;
+            }
+        }
+    </script>
+</body>
+
+</html>

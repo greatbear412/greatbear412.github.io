@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>笔记</title>
+    <!-- <link rel="stylesheet" href="css/normalize.css"> -->
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/Note.css" type="text/css" />
+    <!-- Self -->
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+
+<body class="no-qa">
+    <div class="container">
+        <div id="droot" class="row">
+            <!-- 左部 -->
+            <div class="divLeft two columns">
+            <button type="button" name="button" class="btn_new">新建</button>
+            <button type="button" name="button" class="btn_delete">删除</button>
+            <p class="p1" choosed='true'>new record</p>
+            </div>
+            <!-- 右部 -->
+            <div class="divRight ten columns">
+                <input type="text" placeholder="new record" class="title">
+                <textarea class="txt" cols="10" rows="10"></textarea>
+                <div class="btn-group">
+                    <button type="button" name="button" class="submit">提交</button>
+                    <button type="button" name="button" class="save">保存</button>
+                    <span class="submit_msg" style="display:none">提交成功</span>
+                    <button type="button" name="button" class="clear">clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="node_modules/store.js/store.js"></script>
+    <script src="node_modules/store.js/json.js"></script>
+    <script src="js/Note.js" /></script>
+    <!-- Self -->
+
+</body>
+
+</html>

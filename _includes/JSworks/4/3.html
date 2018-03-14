@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>图片轮换</title>
+
+    <link rel="stylesheet" href="../skeleton.css">
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            vertical-align: top;
+            position: absolute;
+            transition: width 1s, left 0.5s, top 1s, height 1s;
+        }
+
+        .main {
+            width: 1000px;
+            height: 300px;
+            margin: 120px auto;
+            font-size: 0;
+            position: relative;
+        }
+
+        .i1 {
+            margin: 30px 0;
+            left: 200px;
+            z-index: 5;
+
+        }
+
+        .i5 {
+            width: 367px;
+            height: 160px;
+            margin: 30px 0;
+            left: 100px;
+            top: 40px;
+            z-index: 4;
+        }
+
+        .i4 {
+            width: 183px;
+            height: 80px;
+            margin: 30px 0;
+            top: 80px;
+            z-index: 3;
+
+        }
+
+        .i2 {
+            width: 367px;
+            height: 160px;
+            margin: 30px 0;
+            left: 500px;
+            top: 40px;
+            z-index: 4;
+
+        }
+
+        .i3 {
+            width: 183px;
+            height: 80px;
+            margin: 30px 0;
+            left: 780px;
+            top: 80px;
+            z-index: 3;
+
+        }
+
+        span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 10px;
+            background-color: red;
+            cursor: pointer;
+        }
+
+        .button {
+            position: absolute;
+            top: 270px;
+            left: 350px;
+            border: 0;
+            cursor: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <img src="3-1.jpg" alt="" class="i1">
+        <img src="3-2.jpg" alt="" class="i2">
+        <img src="3-3.jpg" alt="" class="i3">
+        <img src="3-4.jpg" alt="" class="i4">
+        <img src="3-5.jpg" alt="" class="i5">
+        <div class="button">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var $ = function selector(element) {
+            var sign = element.charAt(0),
+                rlt = element.substr(1);
+            switch (sign) {
+                case '#':
+                    return document.getElementById(rlt);
+                    break;
+                case '.':
+                    return document.getElementsByClassName(rlt);
+                    break;
+                case '@':
+                    return document.getElementsByTagName(rlt);
+                    break;
+                default:
+                    alert('无法使用选择器函数');
+            }
+        }
+
+        var btn = $('@span'),
+            img = $('@img');
+
+        for (let i = 0; i < btn.length; i++) {
+            btn[i].onmouseover = function() {
+                var count = 1;
+                for (var n = i; n < img.length + i; n++) {
+                    n <= 4 ? img[n].className = 'i' + count : img[n - 5].className = 'i' + count;
+                    count++;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

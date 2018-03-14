@@ -1,0 +1,39 @@
+body{
+    padding-top: 40px;
+}
+.case{
+    text-align: center;
+}
+.about{
+    margin-top: 30px;
+}
+.screenshot .item {
+  border-top: 1px solid #CCC;
+  padding-bottom: 30px;
+  padding-top: 20px;
+}
+h1,h2{
+    font-weight: bold;
+}
+.container-fluid{
+    padding: 0;
+}
+.explanation{
+    padding-top:  30px;
+    text-align: center;
+    padding-left: 150px;
+}
+.display{
+    padding: 0 300px;
+}
+.display-msg{
+    position: relative;
+    left: 80px;
+}
+
+.call{
+    margin-top: 100px;
+}
+a.carousel-control{
+    background-image: none !important;
+}

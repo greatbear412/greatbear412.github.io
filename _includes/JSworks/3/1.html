@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>鼠标悬停提示</title>
+
+    <link rel="stylesheet" href="../skeleton.css">
+    <style media="screen">
+        li:hover::after{
+            content: attr(value);
+            border: 1px solid black;
+            border-radius: 12px;
+            position: absolute;
+            left: 50px;
+            top: 28px;
+            z-index: 1;
+            color: #fff;
+            background-color:rgba(0,0,0, 0.8);
+        }
+        li{
+            position: relative;
+            cursor: pointer;
+        }
+
+        ul{
+            width: 300px;
+            margin: 0 auto;
+            padding-top: 100px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li value="东古塔两支叛军将被拒绝投降，俄空军用烧烤弹对其实施精确打击">东古塔两支叛军将被拒绝投降，俄空军用烧烤弹对其实施精确打击</li>
+        <li value="中国想在这一领域对美实现“弯道超车”，美国急了">中国想在这一领域对美实现“弯道超车”，美国急了</li>
+        <li value="镜子里的人与本人到底差多大？">镜子里的人与本人到底差多大？</li>
+        <li value="小摊贩卖饼竟短斤缺两？周世宗提刀欲明正典刑">小摊贩卖饼竟短斤缺两？周世宗提刀欲明正典刑</li>
+        <li value="乾隆汉妃，一生无宠，居嫔位46年，历经四朝，竟活了92岁！">乾隆汉妃，一生无宠，居嫔位46年，历经四朝，竟活了92岁！</li>
+    </ul>
+</body>
+
+</html>

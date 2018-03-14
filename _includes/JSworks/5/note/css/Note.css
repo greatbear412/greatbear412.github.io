@@ -1,0 +1,91 @@
+/*下面 Flex*/
+
+
+#droot {
+    margin:100px auto 0 auto;
+    padding-top:300px;
+    width: 80%;
+    height: 500px;
+    display: flex;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    padding: 0;
+    justify-content: space-between;
+}
+
+/*左部*/
+
+.divLeft {
+    padding: 5px;
+    overflow: auto;
+    background: rgba(240,246,237,.8);
+    border-radius: 8px;
+    box-shadow: -1px 1px 2px #888888;
+}
+
+.divLeft div {
+    height: 25px;
+}
+.divLeft p{
+    margin: 3px 0;
+    padding: 3px;
+    background: rgba(216, 108, 108, 0.2);
+    border-radius: 8px;
+    box-shadow: -1px 1px 2px #888888;
+}
+/*右部*/
+
+.divRight {
+    border-radius: 8px;
+    box-shadow: -1px 1px 2px #888888;
+    background-color: #c5e6d4;
+    padding: 10px 30px;
+}
+.divRight button{
+    background:grey ;
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    box-shadow: -1px 1px 2px #888888;
+}
+button.clear{
+    float: right;
+}
+
+/*右侧文本框*/
+
+.txt {
+    width: 100%;
+    height: 80%;
+    word-wrap: break-word;
+    border: none;
+    resize: none;
+    margin-bottom: 3px;
+}
+
+/*左侧按钮*/
+.divLeft button{
+    background: rgb(29,131,145);
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    box-shadow: -1px 1px 2px #888888;
+}
+.btn_delete{
+    float: right;
+}
+/* .submit_msg{
+    opacity: 1;
+} */
+
+
+/* html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+} */

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>输入</title>
+
+    <link rel="stylesheet" href="../skeleton.css">
+    <style media="screen">
+        .divtop {
+            text-align: center;
+            padding-top: 200px;
+        }
+
+        .divdown,
+        .divdown2 {
+            text-align: center;
+            padding-top: 50px;
+            padding-left: 30px;
+        }
+
+        .divtiptop {
+            visibility: hidden;
+        }
+
+        input {
+            height: 30px;
+        }
+
+        button {
+            background-image: linear-gradient(to bottom, #428bca 0, #2d6ca2 100%);
+            background-color: #2b669a;
+            color: #fff;
+        }
+
+        span {
+            width: 0.5em;
+        }
+
+        .warning {
+            margin: 3px auto;
+            width: 0;
+            height: 0;
+            border: 5px solid transparent;
+            border-top: 10px solid orange;
+        }
+
+        label {
+            border: 1px solid orange;
+            width: 70px;
+            margin: 0 auto;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="divtop">
+        <div class="divtiptop">
+            <label for="txt">不能为空</label>
+            <div class="warning"></div>
+        </div>
+
+        <span>验证是否为空:</span>
+        <input type="text" class="txt" id="txt" placeholder="请输入文本">
+        <button type="button" name="button">提交</button>
+    </div>
+
+    <div class="divdown">
+        <span>过滤中文1:</span>
+        <input type="text" name="" value="" class="txt">
+        <button type="button" name="button">提交</button>
+    </div>
+
+    <div class="divdown2 ">
+        <span>过滤中文2:</span>
+        <input type="text" name="" value="" class="txt">
+        <button type="button" name="button">提交</button>
+    </div>
+
+
+    <script type="text/javascript">
+        var btntop = document.getElementsByTagName('button')[0],
+
+            txttop = document.getElementsByClassName('txt')[0],
+            txtdown1 = document.getElementsByClassName('txt')[1],
+            txtdown2 = document.getElementsByClassName('txt')[2],
+
+            divwaningtop = document.getElementsByClassName('divtiptop')[0];
+
+        btntop.addEventListener('click', function() {
+            if (!txttop.value.length) {
+                divwaningtop.style.visibility = 'visible';
+            }
+        })
+
+        txttop.addEventListener('click', function() {
+            divwaningtop.style.visibility = 'hidden';
+        })
+
+        txtdown1.addEventListener('input', function() {
+            txtdown1.value = txtdown1.value.replace(/[\u4E00-\u9FA5]/g, '');
+        })
+
+        txtdown2.addEventListener('keyup', function() {
+            txtdown2.value = txtdown2.value.replace(/[\u4E00-\u9FA5]/g, '');
+        })
+    </script>
+</body>
+
+</html>

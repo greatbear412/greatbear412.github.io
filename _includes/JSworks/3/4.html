@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>可拖动、延时关闭的弹出框</title>
+    <link rel="stylesheet" href="../normalize.css">
+    <link rel="stylesheet" href="../skeleton.css">
+    <style media="screen">
+        div {
+            width: 400px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        #delaymsg {
+            transition: opacity 3s;
+        }
+
+        .message {
+            display: none;
+            position: absolute;
+            border-radius: 10px;
+            background: #d1eef3;
+            width: 200px;
+            height: 100px;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .message button {
+            margin: 30px;
+            background-color: #3982a5;
+            color: #fff;
+        }
+
+        .message2 {
+            display: none;
+            position: absolute;
+            border-radius: 10px;
+            background: grey;
+            width: 200px;
+            height: 100px;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        .message2 span {
+            position: relative;
+            top: 40%;
+            transform: translate(0, 30px);
+            color: #fff;
+        }
+
+        .open {
+            opacity: 1;
+        }
+
+        .close {
+            opacity: 0;
+            transition: opacity 3s;
+        }
+        .cover{
+            display: none;
+            width: auto;
+            margin: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background-color: grey;
+            opacity: 0.5;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="">
+        <button type="button" name="button" class="btn1">默认</button>
+        <button type="button" name="button" class="btn2">可拖动</button>
+        <button type="button" name="button" class="btn2">延时关闭</button>
+    </div>
+
+    <div class="message" draggable="true">
+        <span>Hello World!</span></br>
+        <button type="button" name="button">确认</button>
+    </div>
+
+    <div class="message2">
+        <span>我马上就关闭了</span>
+    </div>
+
+    <div class="cover">
+    </div>
+    <script type="text/javascript">
+        var $ = function selector(element) {
+            var sign = element.charAt(0),
+                rlt = element.substr(1);
+            switch (sign) {
+                case '#':
+                    return document.getElementById(rlt);
+                    break;
+                case '.':
+                    return document.getElementsByClassName(rlt);
+                    break;
+                case '@':
+                    return document.getElementsByTagName(rlt);
+                    break;
+                default:
+                    alert('无法使用选择器函数');
+            }
+        }
+
+        var btn = $('@button'),
+            btn_msg = btn[3],
+            msg1 = $('@div')[1],
+            msg2 = $('@div')[2],
+            cover = $('.cover')[0];
+        btn[0].addEventListener('click', function() {
+            alert('Hello World!')
+        })
+
+        //可拖动层
+        btn[1].addEventListener('click', function(e) {
+            msg1.style.display = 'block';
+            cover.style.display = 'block';
+        })
+
+            //--遮罩层
+        cover.addEventListener('click', function(e) {
+            msg1.style.display = 'none';
+            cover.style.display = 'none';
+        })
+
+            //--拖拽效果
+        msg1.ondragstart = function(e) {
+            e.dataTransfer.effectAllowed = "move";
+            e.dataTransfer.setData("text", e.target.innerHTML);
+            e.dataTransfer.setDragImage(e.target, 100, 50);
+            return true;
+        }
+        msg1.ondrag = function(e) {
+            e.preventDefault();
+            msg1.style.margin = '0'
+            msg1.style.top = e.clientY - msg1.offsetHeight / 2 + 'px';
+            msg1.style.left = e.clientX - msg1.offsetWidth / 2 + 'px';
+            return true;
+        }
+        msg1.ondragend = function(e) {
+            e.preventDefault();
+            msg1.style.top = e.clientY - msg1.offsetHeight / 2 + 'px';
+            msg1.style.left = e.clientX - msg1.offsetWidth / 2 + 'px';
+            return true;
+        }
+            //--确认按钮
+        btn_msg.addEventListener('click', function() {
+            msg1.style.display = 'none';
+            cover.style.display = 'none';
+        })
+
+        //延时关闭层
+        btn[2].addEventListener('click', function() {
+            msg2.className = 'message2';
+            msg2.classList.add('open');
+            msg2.style.display = 'block';
+            var t = setTimeout("msg2.classList.add('close')", 1500)
+        })
+
+    </script>
+</body>
+
+</html>

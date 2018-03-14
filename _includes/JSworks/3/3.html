@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>添加、删除表格行</title>
+
+    <link rel="stylesheet" href="../skeleton.css">
+
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0
+        }
+        div{
+            width: 500px;
+            margin: 200px auto;
+        }
+        table {
+            border-collapse: collapse;
+            max-width: 400px;
+        }
+
+        input{
+            width: 250px;
+        }
+        button{
+            width: 80px;
+        }
+        td {
+            text-align: center;
+            border: 1px solid black;
+            width: 100px;
+        }
+
+        td:nth-child(3):hover {
+            cursor: pointer;
+            color: red;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dff0d8;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="">
+        <input type="text" name="" value="">
+        <button type="button" name="button">add</button>
+        <table>
+            <tr>
+                <td>单元1</td>
+                <td>单元2</td>
+                <td>删除</td>
+            </tr>
+            <tr>
+                <td>单元1</td>
+                <td>单元2</td>
+                <td>删除</td>
+            </tr>
+            <tr>
+                <td>单元1</td>
+                <td>单元2</td>
+                <td>删除</td>
+            </tr>
+            <tr>
+                <td>单元1</td>
+                <td>单元2</td>
+                <td>删除</td>
+            </tr>
+            <tr>
+                <td>单元1</td>
+                <td>单元2</td>
+                <td>删除</td>
+            </tr>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        var tr = document.getElementsByTagName('tr'),
+        table = document.getElementsByTagName('table')[0],
+        btn = document.getElementsByTagName('button')[0],
+        txt = document.getElementsByTagName('input')[0];
+
+        btn.addEventListener('click',function () {
+            var new_tr = document.createElement('tr'),
+                new_td1 = document.createElement('td'),
+                new_td2 = document.createElement('td'),
+                new_td3 = document.createElement('td');
+                txt.value?new_td1.innerText = txt.value:new_td1.innerText='单元1';
+                new_td2.innerText = '单元2';
+                new_td3.innerText = '删除';
+                new_td3.addEventListener('click', function() {
+                    this.parentNode.parentNode.removeChild(this.parentNode);
+                    var now_tr = document.getElementsByTagName('tr');
+                    for (var i = 0; i < now_tr.length; i++) {
+                        i%2==0?now_tr[i].style.background = 'none':now_tr[i].style.background = '#dff0d8';
+                    }
+                });
+                new_tr.appendChild(new_td1);
+                new_tr.appendChild(new_td2);
+                new_tr.appendChild(new_td3);
+                table.appendChild(new_tr);
+        })
+        for (var i = 0; i < tr.length; i++) {
+            tr[i].lastElementChild.addEventListener('click', function() {
+                this.parentNode.parentNode.removeChild(this.parentNode);
+                var now_tr = document.getElementsByTagName('tr');
+                for (var i = 0; i < now_tr.length; i++) {
+                    i%2==0?now_tr[i].style.background = 'none':now_tr[i].style.background = '#dff0d8';
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

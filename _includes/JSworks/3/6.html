@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>跟随屏幕滚动广告</title>
+
+    <link rel="stylesheet" href="../skeleton.css">
+    <style media="screen">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        div{
+            margin: 50px;
+            height: 2000px;
+        }
+        .img1{
+            float: left;
+            margin-top: 300px;
+            transition: padding-top 1s;
+        }
+        .img2{
+            float: right;
+            margin-top: 300px;
+            transition: padding-top 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="">
+        <img src="6.jpg" alt="" class="img1">
+        <img src="6.jpg" alt="" class="img2">
+    </div>
+
+    <script type="text/javascript">
+        var img = document.getElementsByTagName('img');
+
+        window.onscroll = function () {
+            for (var i = 0; i < img.length; i++) {
+                img[i].style.paddingTop = document.body.scrollTop + 'px';
+            }
+        }
+    </script>
+</body>
+
+</html>

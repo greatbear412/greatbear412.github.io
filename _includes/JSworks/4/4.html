@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>图片轮换</title>
+
+    <link rel="stylesheet" href="../skeleton.css">
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            vertical-align: top;
+            display: inline-block;
+            margin: 10px;
+            margin-top: 25px;
+            position: relative;
+            left: 0;
+        }
+
+        .container {
+            width: 700px;
+            margin: 120px auto;
+        }
+
+        .main {
+            width: 690px;
+            height: 200px;
+            border: 1px solid #ccc3c3;
+            font-size: 0;
+            position: relative;
+            left: 20px;
+            top: 20px;
+            overflow: hidden;
+        }
+
+        .cover {
+            width: 2800px;
+            height: 200px;
+            position: absolute;
+        }
+
+        button {
+            position: relative;
+            width: 50px;
+            height: 30px;
+            z-index: 1;
+            background-color: #bbce82;
+            padding: 0;
+            top: -100px;
+            line-height: 0;
+        }
+
+        .btn1 {
+            left: -10px;
+        }
+
+        .btn2 {
+            left: 630px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="cover" style='left:-680px'>
+                <img src="4-1.jpg" alt="" class="i1">
+                <img src="4-2.jpg" alt="" class="i1">
+                <img src="4-3.jpg" alt="" class="i1">
+                <img src="4-4.jpg" alt="" class="i1">
+                <img src="4-5.jpg" alt="" class="i1">
+                <img src="4-6.jpg" alt="" class="i1">
+                <img src="4-7.jpg" alt="" class="i1">
+                <img src="4-8.jpg" alt="" class="i1">
+                <img src="4-1.jpg" alt="" class="i1">
+                <img src="4-2.jpg" alt="" class="i1">
+                <img src="4-3.jpg" alt="" class="i1">
+                <img src="4-4.jpg" alt="" class="i1">
+                <img src="4-5.jpg" alt="" class="i1">
+                <img src="4-6.jpg" alt="" class="i1">
+                <img src="4-7.jpg" alt="" class="i1">
+                <img src="4-8.jpg" alt="" class="i1">
+            </div>
+        </div>
+        <button type="button" name="button" class="btn1">L</button>
+        <button type="button" name="button" class="btn2">R</button>
+    </div>
+
+
+    <script type="text/javascript">
+        var $ = function selector(element) {
+            var sign = element.charAt(0),
+                rlt = element.substr(1);
+            switch (sign) {
+                case '#':
+                    return document.getElementById(rlt);
+                    break;
+                case '.':
+                    return document.getElementsByClassName(rlt);
+                    break;
+                case '@':
+                    return document.getElementsByTagName(rlt);
+                    break;
+                default:
+                    alert('无法使用选择器函数');
+            }
+        }
+
+        var btn = $('@button'),
+            img = $('@img'),
+            cover = $('.cover')[0],
+            num = 4,
+            now = 0,
+            wid = 680;
+
+
+        btn[0].onclick = function() {
+            if (now < 2) {
+                now++
+            } else {
+                now = 1;
+                cover.style.left = -wid + 'px';
+            }
+            move(cover, 'left', -(wid * (now + 1)));
+        }
+        btn[1].onclick = function() {
+            if (now >= 3) {
+                now--
+            } else {
+                now = 3;
+                cover.style.left = -wid * 3 + 'px';
+            }
+            move(cover, 'left', -(wid * (now - 1)));
+        }
+
+
+
+        function css(obj, attr) {
+            if (obj.currentStyle) { //IE
+                return obj.currentStyle[attr];
+            } else return getComputedStyle(obj, false)[attr]; //除IE
+        }
+
+        function move(obj, attr, target, fn) {
+            obj.timer && clearInterval(obj.timer);
+            obj.timer = setInterval(function() {
+                var stop = true;
+                var cur = parseInt(css(obj, attr));
+                speed = (target - cur) / 8;
+                speed > 0 ? speed = Math.ceil(speed) : speed = Math.floor(speed);
+                if (target != cur) {
+                    stop = false;
+                    obj.style[attr] = speed + cur + 'px';
+                };
+                if (stop) {
+                    clearInterval(obj.timer);
+                    obj.timer = null;
+                    fn && fn();
+                }
+            }, 30)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>图片放大镜</title>
+
+    <link rel="stylesheet" href="../skeleton.css">
+    <style media="screen">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .small_img {
+            transform: scale(1);
+            cursor: move;
+        }
+
+        .big_img {
+            transform: scale(1);
+            position: relative;
+        }
+
+        .small {
+            float: left;
+            margin: 5% 0 0 30%;
+            width: 100px;
+        }
+
+        .big {
+            display: none;
+            width: 160px;
+            height: 160px;
+            overflow: hidden;
+            float: left;
+            margin: 5% 0 0 15%;
+            background-color: red;
+        }
+
+        .frame {
+            display: none;
+            position: absolute;
+            height: 80px;
+            width: 80px;
+            background-color: grey;
+            opacity: 0.3;
+            z-index: 1
+        }
+
+        .mouse {
+            position: absolute;
+            display: block;
+            width: 100px;
+            left: 0;
+            top:0;
+            right: 0;
+            bottom: 0;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="small">
+        <span class="frame"></span>
+        <img src="1.jpg" alt="" class="small_img">
+    </div>
+    <div class="big">
+        <img src="1-copy.jpg" alt="" class="big_img">
+    </div>
+    <span class="mouse"></span>
+    <script type="text/javascript">
+        window.onload = function() {
+
+            var mouse = document.getElementsByClassName('mouse')[0];
+            window.onmousemove = function(e) {
+                mouse.innerHTML = e.clientX + ' , ' + e.clientY
+            }
+            var small = document.getElementsByClassName('small')[0],
+                small_img = document.getElementsByClassName('small_img')[0],
+                big = document.getElementsByClassName('big')[0],
+                big_img = document.getElementsByClassName('big_img')[0],
+                frame = document.getElementsByClassName('frame')[0];
+            small.onmousemove = function(e) {
+                var x = e.clientX,
+                    y = e.clientY;
+                small.style.cursor = 'move';
+                big.style.display = 'block',
+                    frame.style.display = 'block';
+
+                if (x >= small_img.offsetLeft && x <= small_img.offsetLeft + small_img.offsetWidth) {
+                    if (x >= small_img.offsetLeft + 40 && x <= small_img.offsetLeft + small_img.offsetWidth - 40) {
+                        frame.style.left = e.clientX - 40 + 'px';
+                    } else {
+                        x - small_img.offsetLeft < 40 ? frame.style.left = small_img.offsetLeft + 'px' : frame.style.left = small_img.offsetLeft + small_img.offsetWidth - 80 + 'px';
+
+                    }
+                    big_img.style.left = -big_img.offsetWidth * ((parseInt(frame.style.left) - small_img.offsetLeft) / small_img.offsetWidth) + 'px'
+
+                }
+
+                if (y >= small_img.offsetTop && y <= small_img.offsetTop + small_img.offsetHeight) {
+                    if (y >= small_img.offsetTop + 40 && y <= small_img.offsetTop + small_img.offsetHeight - 40) {
+                        frame.style.top = e.clientY - 40 + 'px';
+                    } else {
+                        y - small_img.offsetTop < 40 ? frame.style.top = small_img.offsetTop + 'px' : frame.style.top = small_img.offsetTop + small_img.offsetHeight - 80 + 'px';
+                    }
+                }
+                big_img.style.top = -big_img.offsetHeight * ((parseInt(frame.style.top) - small_img.offsetTop) / small_img.offsetHeight) + 'px'
+            }
+
+            small.onmouseout = function() {
+                frame.style.display = 'none';
+                big.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>
