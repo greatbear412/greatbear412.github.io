@@ -1,0 +1,23 @@
+---
+layout: post
+title: Vue大型项目学习记录
+tags: [Vue,插件按需,模拟接口]
+---
+## 学习 ##
+1. 组件的引入：`babel-plugin-import`。按需引入，不必引入组件的全部，节约打包大小和时间。
+   全局引入：Vue.use(); 单页引入：component:{}。
+2.
+3. js引入图片要用require。
+4.
+5.
+6. 父子组件传值：`Props`;
+7. `wathch`:直接监视;第一次传默认值时也相应(immediate);深度监视对象(deep)。
+
+## 轮子 ##
+1. `Vue Atom Snippet`：Atom插件。
+2. `Vue-awesome-swiper`轮播和滑动; 自定义拼装。
+3. `Easy-Mock`模拟接口;公共js引入:挂载到Vue.prototype.XXX。
+
+## 待学 ##
+1. Typescript
+2. 单元测试
