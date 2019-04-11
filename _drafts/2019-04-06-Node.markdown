@@ -3,7 +3,7 @@ layout: post
 title: Node学习记录
 tags: [Node]
 ---
-## 文件 ##
+## 学习 ##
 1. 读取与写入：
 ```
 const fs = require('fs')
@@ -11,7 +11,3 @@ fs.readFile('源文件', 'utf8', function(err, data){})
 
 fs.writeFile('目标文件',JSON.stringify(pushData),function(err){})
 ```
-
-
-## 轮子 ##
-1.
