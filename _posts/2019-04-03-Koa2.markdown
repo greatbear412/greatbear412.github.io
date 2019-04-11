@@ -4,21 +4,47 @@ title: Koa2学习记录
 tags: [Koa]
 ---
 ## 学习 ##
-1. `ctx`:上下文；`async`返回`Promise对象`； `await`用来接收前者(`Promise`)的结果，必须放在前者内部。
-2.  在koa2中`GET`请求通过`request`或直接通过`ctx`接收，但是接受的方法有两种：`query`和`querystring`。
-`query`：返回的是格式化好的参数对象。
-`querystring`：返回的是请求字符串。
-3.  在koa2中`POST`请求一般配合`Promise`对象接收，使用`ctx.req.on`。
-`ctx.request`:是Koa2中context经过封装的请求对象，它用起来更直观和简单。
-`ctx.req`:是context提供的node.js原生HTTP请求对象。这个虽然不那么直观，但是可以得到更多的内容，适合我们深度编程。
-4.  `ctx.method`来获取请求方法。
-5.  最后别忘了发布（端口监听：`app.listen`）
-6.  cookies:`ctx.cookies.set&get`
-7.  app.(use)——>router.(user)——>多路由。路由的配置都在router进行，app最后只装在一个:router。
+1. ```ctx```:上下文；```async```返回```Promise对象```； ```await```用来接收前者(```Promise```)的结果，必须放在前者内部。
+2.  在koa2中```GET```请求通过```request```或直接通过```ctx```接收，但是接受的方法有两种：```query```和```querystring```。
+```
+query：返回的是格式化好的参数对象。
+querystring：返回的是请求字符串。
+```
+3.  在koa2中```POST```请求一般配合```Promise```对象接收，使用```ctx.req.on```。
+```
+ctx.request:是Koa2中context经过封装的请求对象，它用起来更直观和简单。
+ctx.req:是context提供的node.js原生HTTP请求对象。这个虽然不那么直观，但是可以得到更多的内容，适合我们深度编程。
+```
+4.  ```ctx.method```来获取请求方法。
+5.  最后别忘了发布（端口监听：```app.listen```）
+6.  cookies:```ctx.cookies.set&get```
 
+## 接口 ##
+1. 分页：跳过(skip)N条，返回L(limit)个
+```
+let categorySubId = ctx.request.body.categoryId;
+let page = ctx.request.body.page;   //当前页数
+let num = 10;   //每页数量
+let start = (page-1) * num;   //每页数量
+const Goods = mongoose.model('GoodsList')
+let result = await Goods.find({SUB_ID:categorySubId}).skip(start).limit(num).exec()
+```
+
+## 路由 ##
+1. app.(use)——>router.(user)——>多路由。路由的配置都在router进行，app最后只装载一个:router。
+2. 模块化路由：将不同模块的路由配置在不同的js文件中，主页面里进行统一加载
 
 ## 轮子 ##
-1. JSON数据格式化：`koa-bodyparser`；
-2. Router:`koa-router`;
-3. ejs模板:`koa-views`;
-4. 静态资源:`koa-static`;
+1. **注册组件的顺序异常重要，如果在router后注册了cors和parser，则后者不起作用**
+```
+app.use(cors())
+app.use(bodyParser())
+app.use(router.routes())
+app.use(router.allowedMethods())
+```
+
+2. JSON数据格式化：```koa-bodyparser```；
+3. Router:```koa-router```;
+4. ejs模板:```koa-views```;
+5. 静态资源:```koa-static```;
+6. cors:```koa2-cors```;

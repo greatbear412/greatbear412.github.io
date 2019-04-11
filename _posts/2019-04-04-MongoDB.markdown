@@ -7,111 +7,131 @@ tags: [MongoDB,非关系型数据库]
 1. 非关系型数据库产品是传统关系型数据库的功能阉割版，通过减少用不到或很少用的功能，来大幅度提高产品性能。做小项目完全可用。
 
 ## 基础操作 ##
-1. `show dbs` : 显示所有数据库
-2. `db.version()`: 查看数据库版本
-3. `user XXX`: 进入XX数据库
-4. `show collections`: 显示集合
-5. `db` :显示当前数据库
-6. `use db（建立数据库）`：use不仅可以进入一个数据库，如果你敲入的库不存在，它还可以帮你建立一个库。但是在没有集合前，它还是默认为空。
-   `db.集合.stats( )`:集合状态
-   `db.集合.insert( )`:新建数据集合和插入文件（数据），当集合没有时，这时候就可以新建一个集合，并向里边插入数据。Demo：db.user.insert({“name”:”jspang”})
-    `db.集合.find( )`:查询所有数据，这条命令会列出集合下的所有数据，可以看到MongoDB是自动给我们加入了索引值的。Demo：db.user.find()
-    `db.集合.findOne( )`:查询第一个文件数据，这里需要注意的，所有MongoDB的组合单词都使用首字母小写的驼峰式写法。
-    `db.集合.update({查询},{修改})`:修改文件数据，第一个是查询条件，第二个是要修改成的值。这里注意的是可以多加文件数据项的，比如下面的例子。
-    `db.jspang.update({"name":"jspang"},{"name":"jspang","age":"32"})``
-    `db.集合.remove(条件)`：删除文件数据，注意的是要跟一个条件。Demo:db.user.remove({“name”:”jspang”})
-    `db.集合.drop( )`:删除整个集合，这个在实际工作中一定要谨慎使用，如果是程序，一定要二次确认。
-    `db.dropDatabase( )`:删除整个数据库，在删除库时，一定要先进入数据库，然后再删除。实际工作中这个基本不用，实际工作可定需要保留数据和痕迹的。
+1. ```show dbs``` : 显示所有数据库
+2. ```db.version()```: 查看数据库版本
+3. ```user XXX```: 进入XX数据库
+4. ```show collections```: 显示集合
+5. ```db``` :显示当前数据库
+6. ```use db（建立数据库）```：use不仅可以进入一个数据库，如果你敲入的库不存在，它还可以帮你建立一个库。但是在没有集合前，它还是默认为空。
+   ```db.集合.stats( )```:集合状态
+   ```db.集合.insert( )```:新建数据集合和插入文件（数据），当集合没有时，这时候就可以新建一个集合，并向里边插入数据。Demo：```db.user.insert({“name”:”jspang”})```
+    ```db.集合.find( )```:查询所有数据，这条命令会列出集合下的所有数据，可以看到MongoDB是自动给我们加入了索引值的。Demo：```db.user.find()```
+    ```db.集合.findOne( )```:查询第一个文件数据，这里需要注意的，所有MongoDB的组合单词都使用首字母小写的驼峰式写法。
+    ```db.集合.update({查询},{修改})```:修改文件数据，第一个是查询条件，第二个是要修改成的值。这里注意的是可以多加文件数据项的，比如下面的例子。
+    ```db.jspang.update({"name":"jspang"},{"name":"jspang","age":"32"})```
+    ```db.集合.remove(条件)```：删除文件数据，注意的是要跟一个条件。Demo:db.user.remove({“name”:”jspang”})
+    ```db.集合.drop( )```:删除整个集合，这个在实际工作中一定要谨慎使用，如果是程序，一定要二次确认。
+    ```db.dropDatabase( )```:删除整个数据库，在删除库时，一定要先进入数据库，然后再删除。实际工作中这个基本不用，实际工作可定需要保留数据和痕迹的。
 7. JS操作时：
-    `mongo goTask.js` :执行JS文件
-    `var db = connect("XXX")`链接数据库，相当于 `user db`
+    ```mongo goTask.js``` :执行JS文件
+    ```var db = connect("XXX")```链接数据库，相当于 ```user db```
 ## 基础数据操作 ##
-8. 插入数据时，就像插入DOM一样，把所有的数据先集合好，然后一次性批量插入
-9. 更新数据时：(1.识别字段不唯一时更新无效;2.用双引号)
-    更新整条数据：`db.workmate.update({识别},新数据对象)`
-    更新/增加选定字段：`db.workmate.update({识别},{"$set":{"所需字段"}})`
-    更新/增加选定数据：`db.workmate.update({识别},{"$set":{"所需字段"}},{upsert:boolean})` true为如果没有就新建这条数据
-    操作全部数据: `db.workmate.update({ },{更新项})`  设置为空即可
-    符合条件的多个数据是否重复操作： `db.workmate.update({识别},{更新项},{multi:boolean})`  true为全部，false为只对第一条生效
-    简写时，upsert在前，multi在后:`db.workmate.update({识别},{"$set":{"所需字段"}},false,true)`
+1. 插入数据时，就像插入DOM一样，把所有的数据先集合好，然后一次性批量插入
+2. 更新数据时：(1.识别字段不唯一时更新无效;2.用双引号)
+    更新整条数据：```db.workmate.update({识别},新数据对象)```
+    更新/增加选定字段：```db.workmate.update({识别},{"$set":{"所需字段"}})```
+    更新/增加选定数据：```db.workmate.update({识别},{"$set":{"所需字段"}},{upsert:boolean})``` true为如果没有就新建这条数据
+    操作全部数据: ```db.workmate.update({ },{更新项})```  设置为空即可
+    符合条件的多个数据是否重复操作： ```db.workmate.update({识别},{更新项},{multi:boolean})```  true为全部，false为只对第一条生效
+    简写时，upsert在前，multi在后:```db.workmate.update({识别},{"$set":{"所需字段"}},false,true)```
 
-    与`$set`同类的：`$push`
-    `$ne`(查找，有则不动，无则执行后续修改动作)
-    `db.workmate.update({name:"xiaoWang","interest":{$ne:"playGame"}},{$push:{interest:"Game"}})`
-    `$addToSet`(前者的升级版)
-    `db.workmate.update({name:"xiaoWang"},{$addToSet:{interest:"readBook"}})`
-    `$each`一次性追加多数据
-    `var newInterset=["Sing","Dance","Code"];
-    db.workmate.update({name:"xiaoWang"},{$addToSet:{interest:{$each:newInterset}}})`
-    `$pop`删除：-1从开始位置，1从末尾位置
-    `db.workmate.update({name:"xiaoWang"},{$pop:{interest:1}})`
+    与```$set```同类的：```$push```
+    ```$ne```(查找，有则不动，无则执行后续修改动作)
+    ```db.workmate.update({name:"xiaoWang","interest":{$ne:"playGame"}},{$push:{interest:"Game"}})```
+    ```$addToSet```(前者的升级版)
+    ```db.workmate.update({name:"xiaoWang"},{$addToSet:{interest:"readBook"}})```
+    ```$each```一次性追加多数据
+    ```var newInterset=["Sing","Dance","Code"];
+    db.workmate.update({name:"xiaoWang"},{$addToSet:{interest:{$each:newInterset}}})```
+    ```$pop```删除：-1从开始位置，1从末尾位置
+    ```db.workmate.update({name:"xiaoWang"},{$pop:{interest:1}})```
     定位修改:修改interest的第二项为Code
-    `db.workmate.update({name:"xiaoWang"},{$set:{"interest.2":"Code"}})`
+    ```db.workmate.update({name:"xiaoWang"},{$set:{"interest.2":"Code"}})```
 
-    删除选定字段：`db.workmate.update({识别},{"$unset":{"所需字段"}})`
+    删除选定字段：```db.workmate.update({识别},{"$unset":{"所需字段"}})```
 
-    操作/运算符: `$inc`--`db.workmate.update({识别},{"$inc":{"所需字段":进行的操作}})`
+    操作/运算符: ```$inc```--```db.workmate.update({识别},{"$inc":{"所需字段":进行的操作}})```
 
 ## runCommand ##
 1. `db.runCommand( )`
 理解：它是数据库运行命令的执行器，执行命令首选就要使用它
 用法：
-`db.workmate.update({sex:1},{$set:{money:1000}},false,true)
+```
+db.workmate.update({sex:1},{$set:{money:1000}},false,true)
 var resultMessage=db.runCommand({getLastError:1})
-printjson(resultMessage);`
+printjson(resultMessage);
+```
 
 ## findAndModify ##
-理解：1.性能稍差，但安全性更高。可选参数还有`sort: 进行排序;fields：需要返回的字段,upsert：没有这个值是否增加。`；
+理解：
+1.性能稍差，但安全性更高。可选参数还有```sort: 进行排序;fields：需要返回的字段,upsert：没有这个值是否增加。```；
 2.一次最多只更新一个文档，也就是条件query条件，且执行sort后的第一个文档
 用法:
-`var myModify={
+```
+var myModify={
     findAndModify:"workmate",
     query:{name:"JSPang"},
     update:{$set:{age:18}},//或remove，这俩只能存在一个
     new:true    //更新完成，需要查看结果，如果为false不进行查看结果
   }
     var ResultMessage=db.runCommand(myModify);
-    printjson(ResultMessage)`
-## find ##
-1. `var startDate= new Date("01/01/2018");`
-`db.workmate.find(
-    {"skill.skillOne":"HTML+CSS"},  //普通查找
-    {age:{$lte:30,$gte:25}},  //条件查找 ($lt,$lte,$gt,$gte,$ne)
-    {regeditTime:{$gt:startDate}}, //日期查找
-    {name:true,"skill.skillOne":true}
-)`
-2. `$in`（一个key，多个value）、`$nin`、`$or`(多个key)、`$and`、`$not`
-`db.workmate.find({
+    printjson(ResultMessage)
+```
+
+## find
+
+1:
+
+```
+    var startDate= new Date("01/01/2018");
+    db.workmate.find(
+        {"skill.skillOne":"HTML+CSS"},  //普通查找
+        {age:{$lte:30,$gte:25}},  //条件查找 ($lt,$lte,$gt,$gte,$ne)
+        {regeditTime:{$gt:startDate}}, //日期查找
+        {name:true,"skill.skillOne":true}
+    )
+```
+ 2: `$in`（一个key，多个value）、`$nin`、`$or`(多个key)、`$and`、`$not`
+```
+db.workmate.find({
     age:{
         $not:{
             $lte:30,
             $gte:20
         }
-    },{name:1,"skill.skillOne":1,age:1,_id:0})`
-3. 其他用数组形式查询的：`$in`、`$all`(与in不同的，同时满足多条件)、`$size`(条线个数，不是长度)、`{$slice:2}`(只显示前两个)、
-`db.workmate.find(
+    },{name:1,"skill.skillOne":1,age:1,_id:0})
+```
+3: 其他用数组形式查询的：```$in```、```$all```(与in不同的，同时满足多条件)、```$size```(条线个数，不是长度)、```{$slice:2}```(只显示前两个)
+```
+db.workmate.find(
     {interest:{$in:["看电影","看书"]}},
     {name:1,interest:{$slice:2},age:1,_id:0}
-)`
-4. find参数：
+)
+```
+4: find参数：
 `query`：这个就是查询条件，MongoDB默认的第一个参数。
 `fields`：（返回内容）查询出来后显示的结果样式，可以用true和false控制是否显示。
 `limit`：返回的数量，后边跟数字，控制每次查询返回的结果数量。
 `skip`:跳过多少个显示，和limit结合可以实现分页。
 `sort`：排序方式，从小到大排序使用1，从大到小排序使用-1。
-`db.workmate.find(
+```
+db.workmate.find(
   {},
   {name:true,age:true,_id:false})
     .limit(0)
     .skip(2)
-    .sort({age:1});`
-5. `$where`:this指向的是workmate（查询集合）本身;对于数据库的压力和安全性都会变重,尽量减少$where修饰符的使用
-`db.workmate.find(
+    .sort({age:1});
+```
+5: `$where`:this指向的是workmate（查询集合）本身;对于数据库的压力和安全性都会变重,尽量减少`$where`修饰符的使用
+```
+db.workmate.find(
     {$where:"this.age>30"},
     {name:true,age:true,_id:false}
-)`
-6. 文本显示：
-`var db = connect("company")  //进行链接对应的集合collections
+)
+```
+6: 文本显示：
+```
+var db = connect("company")  //进行链接对应的集合collections
 var result = db.workmate.find() //声明变量result，并把查询结果赋值给result
 //利用游标的hasNext()进行循环输出结果。
 while(result.hasNext()){
@@ -120,20 +140,90 @@ while(result.hasNext()){
 //更简洁的ForEach
 result.forEach(function(result){
     printjson(result)
-})`
+})
+```
 
 ## 索引 ##
-1. 查看索引：`db.集合.getIndexes()`
-2. 建立索引: `db.集合.ensureIndex({索引字段})`。可以做多个索引。将此字段设为索引后，再来查询该字段，会快很多。
+1. 查看索引：```db.集合.getIndexes()```
+2. 建立索引: ```db.集合.ensureIndex({索引字段})```。可以做多个索引。将此字段设为索引后，再来查询该字段，会快很多。
 3. 数据量小，索引字段重合度高等时，并不适合做索引。
-4. 查询时设置索引：默认情况下，按照设置的索引顺序查询（`db.集合.getIndexes()`返回的顺序），自定义查询`db.集合.find({条件}).hint({索引字段：boolean/1,0})`  布尔或1、0都可以
-5. 删除索引:`db.集合.dropIndex("name")`。这个`name`，也是由1查询出来的`name`字段
+4. 查询时设置索引：默认情况下，按照设置的索引顺序查询（```db.集合.getIndexes()```返回的顺序），自定义查询```db.集合.find({条件}).hint({索引字段：boolean/1,0})```  布尔或1、0都可以
+5. 删除索引:```db.集合.dropIndex("name")```。这个```name```，也是由1查询出来的```name```字段
 6. 全文索引:
   首先建立要索引的字段:`db.集合.ensureIndex({索引字段:text})` 很多常用词（a,the）等，属于停止词，无法建立索引
-  查询： 如`"I am a programmer, I love PlayGame, love drink. Every day after work, I playGame and drink."`
-        `db.集合.find($text{$search:"love book"})`;
-        `-：不查询这些字段 db.集合.find($text{$search:"love -book"})`
-        `\：转义 查询相连的多字段 db.集合.find($text{$search:"\"love family\" -book"})` 查询包含"love family"
+  查询： 如"I am a programmer, I love PlayGame, love drink. Every day after work, I playGame and drink."
+```
+        db.集合.find($text{$search:"love book"});
+        -：不查询这些字段 db.集合.find($text{$search:"love -book"})
+        \：转义 查询相连的多字段 db.集合.find($text{$search:"\"love family\" -book"})
+```
+        查询包含"love family"
 ## 轮子 ##
 1. `mongoDB`:数据库;`robomongo`：可视化操作前者;
-2. `Mongoose是一个开源的封装好的实现Node和MongoDB数据通讯的数据建模库。`
+2. `Mongoose`是一个开源的封装好的实现Node和MongoDB数据通讯的数据建模库。
+
+## 用户 ##
+1. 建立：
+```
+db.createUser({
+    user:"xyj",
+    pwd:"123456",
+    customData:{
+        name:'XXX',
+        email:'XXX',
+    },
+    roles:[
+        {
+            role:"readWrite",
+            db:"company"
+        },
+        'read'
+    ]
+})
+```
+
+roles有很多内置角色:
+数据库用户角色：read、readWrite；
+数据库管理角色：dbAdmin、dbOwner、userAdmin;
+集群管理角色：clusterAdmin、clusterManager、clusterMonitor、hostManage；
+备份恢复角色：backup、restore；
+所有数据库角色：readAnyDatabase、readWriteAnyDatabase、userAdminAnyDatabase、dbAdminAnyDatabase
+超级用户角色：root
+内部角色：__system
+2. 删除:```db.system.users.remove({user:"jspang"})```
+3. 查找:```db.system.users.find()```
+4. 建权:```db.auth("username","password")()```
+5. 启动建权登陆:重启服务器，```mongod --auth```
+6. 登陆:```mongo -u x -p 1 127.0.0.1:27017/admin```(非建权用户无法登陆)
+
+## 备份&恢复 ##
+1.备份:
+```
+mongodump
+    --host 127.0.0.1
+    --port 27017
+    --out D:/databack/backup
+    --collection myCollections
+    --db test
+    --username username
+    --password password
+```
+如：```mongodump --host 127.0.0.1 --port 27017 --out D:/databack/```
+
+2.恢复：
+```
+mongorestore
+    --host 127.0.0.1
+    --port 27017
+    --username username
+    --password password
+    <path to the backup>
+```
+如：```mongorestore --host 127.0.0.1 --port 27017 D:/databack/```(这里就没有--out了)
+
+## 图形界面 ##
+MongoDB安装时附带的MongoDB Compass Community
+filter的语法和find一样
+
+## 腾讯云部署 ##
+1. mongod.conf里配置bind_ip：空格 0.0.0.0。 当注释无效使用该方法时，这个空格，必须有！

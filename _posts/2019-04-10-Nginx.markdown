@@ -1,0 +1,11 @@
+---
+layout: draft
+title: Nginx学习记录
+tags: [Nginx]
+---
+## 文件 ##
+1. 启动：systemctl start mongod.service
+
+
+## 轮子 ##
+1.
