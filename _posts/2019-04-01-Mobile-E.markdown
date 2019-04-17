@@ -111,6 +111,67 @@ beforeRouteLeave(to, from, next) {
     next();
 }
 ```
+13. 操作DOM：用的多的话，就自定义指定，里面钩子函数的东西极为丰富；用的不多的话，用ref或者原生js
+## 学习-VueX ##
+1. 基础用法：
+```
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
+ const state={   //要设置的全局访问的state对象
+     showFooter: true,
+     changableNum:0   //要设置的初始属性值
+   };
+const getters = {   //实时监听state值的变化(最新状态)        ---获取：this.$store.getters.isShow
+    isShow(state) {  //承载变化的showFooter的值
+       return state.showFooter
+    }
+};
+const mutations = {
+    show(state) {   //自定义改变state初始值的方法，这里面的参数除了state之外还可以再传额外的参数(变量或对象);    ---调用，同步：this.$store.commit('show')
+        state.showFooter = true;
+    }
+};
+ const actions = {
+    showFooter(context) {  //自定义触发mutations里函数的方法，context与store 实例具有相同方法和属性   ---调用，异步：this.$store.dispatch('hideFooter')
+        context.commit('show');
+    },
+};
+  const store = new Vuex.Store({
+       state,
+       getters,
+       mutations,
+       actions
+});
+export default store;
+```
+
+2.模块化：多个模块同时使用时，3个步骤要注意
+
+ 1. 模块的store.js里添加
+  ```export default {
+        namespaced: true, //用于在全局引用此文里的方法时标识这一个的文件名
+        state,
+        getters,
+        mutations,
+        actions
+}```
+ 2. 组件使用时，引入map系列
+ ```import {mapState,mapGetters,mapActions} from 'vuex'; ```
+ 3. 组件使用时，为区分使用的是**哪个模块**的state，有两种方法
+ ```
+//1.直接注明路径
+this.$store.dispatch('footerStatus/showFooter')
+//2.Map系列来引用
+...mapState({  //这里的...是超引用，ES6的语法，意思是state里有多少属性值我可以在这里放多少属性值
+         isShow:state=>state.footerStatus.showFooter //注意这些与上面的区别就是state.footerStatus,
+                                                      //里面定义的showFooter是指模块文件footerStatus.js里state的showFooter
+      })
+      methods:{
+      ...mapActions('collection',[ //collection是指modules文件夹下的collection.js
+          'invokePushItems'  //collection.js文件中的actions里的方法，在上面的@click中调用invokePushItems执行并传入实参
+      ])
+  }```
 ## 学习-后端 ##
 1. 理解：
 > Schema：模板文件集合--写模板    

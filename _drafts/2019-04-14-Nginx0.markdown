@@ -1,0 +1,16 @@
+---
+layout: draft
+title: ES6，你来辣
+tags: [ES6]
+---
+## 变 ##
+1. for循环：
+
+普通数组循环(forEach,map等)|for-of|for-in
+:--:|:--:|:--:
+无法中断与返回外层|响应break和return|响应
+Object无用|查询对象Value值|查询对象Key值
+不查找原型非枚举属性|查找|不查找，主要用来遍历对象
+
+## 轮子 ##
+1.
