@@ -51,6 +51,7 @@ a{b,c}d{e,f}g 会展开为 abdeg,acdeg,abdeg,abdfg
 
 1. gulp的使用流程一般是这样子的：首先通过gulp.src()方法获取到我们想要处理的文件流，然后把文件流通过pipe方法导入到gulp的插件中，最后把经过插件处理后的流再通过pipe方法导入到gulp.dest()中，gulp.dest()方法则把流中的内容写入到文件中，这里首先需要弄清楚的一点是，我们给gulp.dest()传入的路径参数，只能用来指定要生成的文件的目录，而不能指定生成文件的文件名，它生成文件的文件名使用的是导入到它的文件流自身的文件名，所以生成的文件名是由导入到它的文件流决定的
 2. 通配符：```gulp.dest(path[,options])```生成的文件路径是我们传入的path参数后面再加上gulp.src()中有通配符开始出现的那部分路径。比如:
+
 ```
 gulp.src('script/avalon/avalon.js') //没有通配符出现的情况
     .pipe(gulp.dest('dist')); //最后生成的文件路径为 dist/avalon.js
@@ -65,6 +66,7 @@ gulp.src('script/*') //有通配符出现的那部分路径为 *
     .pipe(gulp.dest('dist')); //则最后生成的文件路径为 dist/zepto.js
 ```
 3. base的影响：通过指定gulp.src()方法配置参数中的base属性，我们可以更灵活的来改变gulp.dest()生成的文件路径。
+
 ```
 gulp.src(script/lib/*.js) //没有配置base参数，此时默认的base路径为script/lib
     //假设匹配到的文件为script/lib/jquery.js
