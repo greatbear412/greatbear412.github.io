@@ -82,6 +82,7 @@ gulp.src(script/lib/*.js, {base:'script'}) //配置了base参数，此时base路
 1. 默认是按顺序执行的；遇到有依赖的任务，会先执行依赖的任务，其次执行该任务；依赖的任务是异步时，不会等待其执行完毕。
 2. 如果需要依赖的异步任务执行完毕再执行本体，3种方法：
 在异步操作完成后执行一个回调函数来通知gulp这个异步任务已经完成,这个回调函数就是任务函数的第一个参数。
+
 ```
 gulp.task('one',function(cb){ //cb为任务函数提供的回调，用来通知任务已经完成
   //one是一个异步执行的任务
@@ -97,6 +98,7 @@ gulp.task('two',['one'],function(){
 });
 ```
 定义任务时返回一个流对象。适用于任务就是操作gulp.src获取到的流的情况。
+
 ```
 gulp.task('one',function(cb){
   var stream = gulp.src('client/**/*.js')
@@ -109,7 +111,9 @@ gulp.task('two',['one'],function(){
   console.log('two is done');
 });
 ```
+
 返回一个promise对象
+
 ```
 var Q = require('q'); //一个著名的异步处理的库 https://github.com/kriskowal/q
 gulp.task('one',function(cb){
@@ -130,6 +134,7 @@ gulp.task('two',['one'],function(){
 
 1. 用来监视文件的变化，当文件发生变化后，我们可以利用它来执行相应的任务，例如文件压缩等
 2. 用法：
+
 ```
 gulp.watch(glob[, opts], tasks)
 glob 为要监视的文件匹配模式，规则和用法与gulp.src()方法中的glob相同。
@@ -145,6 +150,7 @@ gulp.task('reload',function(){
 gulp.watch('js/**/*.js', ['uglify','reload']);
 ```
 gulp.watch()还有另外一种使用方式：回调函数，包含了文件的变化信息
+
 ```
 gulp.watch(glob[, opts, cb])
 glob和opts参数与第一种用法相同
