@@ -53,7 +53,7 @@ methods: {
   }
 }
 ```
-10.替补图片：
+10. 替补图片：
 ```
 //定义
 data(){
@@ -64,12 +64,12 @@ data(){
 //使用
 <img :src="item.IMAGE1" width="100%" :onerror="errorImg"/>
 ```
-11.下拉刷新和上拉加载key code：
+11. 下拉刷新和上拉加载key code：
 ```
 target.style.transform = 'translateY(50px)'
 target.style.transition = "all ease 0.5s";
 ```
-12.组件缓存：
+12. 组件缓存：
 1. 直接缓存
 ```
 <keep-alive>
