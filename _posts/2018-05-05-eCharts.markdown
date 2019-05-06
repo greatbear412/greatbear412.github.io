@@ -1,0 +1,42 @@
+---
+layout: post
+title: eCharts
+tags: [eCharts]
+---
+## 首先 ##
+1. 向下兼容到IE8.
+2. 引入JQuery.js,echarts.js,bmap.js,百度地图api是基础。
+3. 一般包含4部分：数据准备，数据转换（不同type需要的数据格式是不同的），echarts的option的准备和初始化，事件绑定
+
+
+## 重要配置项 ##
+1. dataZoom:
+控制缩放。操作数轴。
+允许多个，存在多个时自动联动（？）。
+`filterMode`决定过滤方式：同地位则均为empty；有主次则主轴过滤，辅轴empty。empty即为把超出的该相设为NaN，但另一项不动，其在轴上占位。
+与min，max相斥，优先级低于前者。
+start，end的结果是经历了min，max，option的filter（filter的结果按option中出现顺序决定，从上至下）后的结果。
+2. legend:图例组件。展示了不同series。
+3. tooltip:提示框。各处能用。坐标轴指示框axisPointer可单独配置，也可出现在各轴上单独配置。
+4. toolbox:工具框。feature为配置项，可自定义工具（必须my开头）。
+5. brush:
+圈选工具。可在toolbox中配置，也可单独配置。
+可设为全局，也可指定坐标系（此时会随坐标系一同缩放）。
+圈选事件为'brushSelected'。
+6. visualMap取代了2.X版本中的dataRange。
+7. geo:地理坐标系。先引入地图文件。
+8. bmap：百度地图。
+9. series: 包含如下type：
+```
+bar
+pie
+line
+lines
+等等
+```
+
+不同的type对应了不同的data格式。
+有些type下的属性（如symbolSize）可采用回调的方式，其行参与data中每一项的value有关。
+不同type下的属性不尽相同，比如lines下面没有tooltip。
+10. label均支持formatter模版字符串。
+11. setOption（option，notMerge） notMerge:Booling
