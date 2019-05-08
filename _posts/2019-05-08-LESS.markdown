@@ -1,0 +1,95 @@
+---
+layout: post
+title: LESS
+tags: [LESS]
+---
+## 规范 ##
+1. 开发时引入LESS.js即可编译，生产时要转译好节省性能。
+2. LESS文件都是独立的，A的变量B不可用。要想用，import引入。
+
+## 用法 ##
+1.变量：变量是常量，只能定义一次；值，选择器（使用时，变量名加{}），属性(same)，url（加“”,same）等。
+```
+//成套使用--定义
+@variable:{
+  name:value;
+  name:value
+}
+
+//使用
+XX{
+  @variable()
+}
+
+变量参与运算，单位：加减法以第一个为准，乘除法要一致
+```
+
+2.混合方法：
+```
+1.
+//定义---.和#均可作为前缀
+.mixF(@V1:行参1默认值,@V2:行参2默认值,..){
+  name:@V2
+}
+//使用
+XX{
+  .mixF(实参：必须带单位)
+}
+
+2.匹配模式
+.mixF(parttern,行参){}   //pattern字符串不需要引号
+XX(pattern,实参){}
+```
+
+3.命名空间--更有效的组织方法
+```
+.mixF(args){
+  name:value;
+  .submixF1(){
+    name:value;
+    .subSubmixF1(){
+
+    }
+  };
+  .submixF2(){
+    ...
+  }
+}
+父元素不能加括号，也就不能与匹配模式混搭。
+```
+4.判断--注意，除了关键字true以外都是false
+```
+.mixF() when (not)(){}
+```
+5.扩展运算符
+```
+.mixF(...){
+  name:@arguments
+}
+```
+
+6.!impotant：在使用的时候加在最后即可
+
+7.拼接： +：逗号   +_：空格
+```
+.mixF(){
+  name+_:value
+}
+XX{
+  name:value;
+  .mixF()
+}
+```
+8.嵌套：&代表是上一级的名字。
+```
+#abcd{
+  $_con{
+    name:value
+  }
+}
+代表的是 #abcd_con
+```
+
+9.避免编译：～'value'。则value会原样输出
+
+10.注释：想输出到css，就用 /* content */
