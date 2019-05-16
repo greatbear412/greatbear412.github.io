@@ -1,0 +1,26 @@
+---
+layout: post
+title: Three.js
+tags: [Three,Three.js]
+---
+## THREE ##
+ - .Vector3: 定义点
+ - .LineBasicMaterial： 定义线条
+ - .Color： 定义颜色
+
+
+
+## Geometry ##
+
+ - .vertices: 存放点
+
+## Light ##
+ - Three.AmbientLight:环境光
+ - .PointLight:点光源
+ - .SpotLight:聚光灯
+ - .AreaLight:区域光
+ - .DirectionalLight:方向光(从position照向原点)
+
+## 材质 ##
+ - 材质与光是相互作用的，不同的材质对光的反应也不同。
+ - 纹理：皮肤

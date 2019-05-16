@@ -24,7 +24,7 @@ start，end的结果是经历了min，max，option的filter（filter的结果按
 可设为全局，也可指定坐标系（此时会随坐标系一同缩放）。
 圈选事件为'brushSelected'。
 6. **visualMap取代了2**.X版本中的dataRange。
-7. **geo**:地理坐标系。先引入地图文件。
+7. **geo**:地理坐标系。先引入地图文件。纯底图。而series下的map，它首先是series，是为了显示数据的。
 8. **bmap**：百度地图。
 9. **series**: 包含如下type：
 ```

@@ -37,7 +37,7 @@ Python对bytes类型的数据前面加b以及引号显示：```X=b'ABC'```。这
 5. int（）等内置函数。定义函数：def。返回多值时，实际上返回的是tuple。
 函数参数规则如下：
 ```
-可变参数：def func（\*arg）,接收的是一个tuple。调用参数时可以直接写，会转换为tuple，也可以在list和tuple前加*也会将包含元素当作可变参数挨个传入。
+可变参数：def func（*arg）,接收的是一个tuple。调用参数时可以直接写，会转换为tuple，也可以在list和tuple前加*也会将包含元素当作可变参数挨个传入。
 关键字参数：接收的是一个dict。调用时可传入任意不受限制等参数。可直接传，也可以传一个dict。函数内部对于这些参数来作审查。
 def func（arg1,arg2,**arg）:
     if 'job' in arg:
@@ -45,9 +45,44 @@ def func（arg1,arg2,**arg）:
 非可变\关键字参数，要么定义时有默认值，要么调用时传值。
 命名关键字参数：限制关键字参数等名字。以*号分割，或前面出现了可变参数。
 def func（arg1,arg2,*,age,job）:
-def func（title,name,\*arg,age=‘18’,job）：这里的age和job是命名的，调用时必须指定！
+def func（title,name,*arg,age=‘18’,job）：这里的age和job是命名的，调用时必须指定！
+
+匿名函数 lambda arg:expression
 ```
 定义时，必须遵守（位置参数，默认参数，可变参数，关键字参数，命名关键字参数）的顺序！
 6. for in，while
 7. dict：类比js里的对象；set，类比ES6的set。 这俩区别：set无value，且自动过滤重复元素
 8. pass：啥也不干。占位符。
+
+### 高级特性 ###
+1. 切片：
+用法：list[start:length]
+适用：各个
+举例：如L[-1:8]
+2. 迭代：
+用法：for in
+适用：各个
+举例：for key,value in d.items()
+3. 列表生成器
+用法：[ x for v in L ]。x可运算。for 循环可叠加。后面可跟判断。
+适用：直接生成List的时候
+举例：[ m+n for m in 'ABC' for n in 'BCD' ]
+4. 生成器generator
+5. 迭代器
+
+### Class ###
+ 1. 定义
+```
+class Student(父级):
+    name = xx 类属性，实例将共享之；同名的实例属性会覆盖
+
+    def __init__(self, name, score): #定义实例属性
+        self.name = name
+        self.score = score
+
+    def print_score(self): #定义方法
+        print('%s: %s' % (self.name, self.score))
+```
+ 2. 变量：
+ - `__attr` 私有变量 外部不可访问。原理是Python解释器自动把 _开头的变量加了前缀。所以强行修改，实际上是新增了个变量。
+ - `__xxx__` 特殊变量。内置的。
