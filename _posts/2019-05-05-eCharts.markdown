@@ -41,7 +41,7 @@ lines
 ```
 series-custom:自定义图形渲染。
 renderItem决定了自定义的渲染方式，【data中的每个数据项，会调用此方法】。这里包含了echarts.util.api等方法；和api.value等方法。
-echarts.util.map(data_Array,Method_Function):用后者方法处理前者的数组数据。后者可自己写，也可用内置的api.coords。(文档搜)
+位置获取就用内置的api.coords（[横坐标的值，纵坐标的值]）。
 
 ```
 10. **label**均支持formatter模版字符串。
@@ -66,3 +66,17 @@ type": "FeatureCollection",
     ]
   }
 ```
+
+## echarts.API ##
+ - .version: 先确认版本。echarts主版本不同差异很大。
+ - .format(arg1,arg2): 格式，值
+```
+echarts.format.formatTime('yyyy-MM-dd', params[0].value)
+```
+
+ - .util.map/each/index: 原生
+
+ - .dispose(): 销毁。实例不再可用--chart.clear(): 清除，实例仍可用，只是要重新init。
+ - .vector
+ - .zrender
+ 

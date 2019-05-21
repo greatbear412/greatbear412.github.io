@@ -5,6 +5,8 @@ tags: [Three,Three.js]
 ---
 ## THREE ##
  - .Vector3: 定义点
+ - .Line: 定义线
+ - .Mesh: 定义面的集合。网格模型。
  - .LineBasicMaterial： 定义线条
  - .Color： 定义颜色
 
