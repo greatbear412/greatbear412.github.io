@@ -1,0 +1,9 @@
+---
+layout: post
+title: 略知一二数据库
+tags: [关系型数据库, MySql, NoSql]
+---
+## 动态规划 ##
+登陆mysql：mysql -u root -p
+启动mysql：brew services start mysql@5.7
+停止mysql：brew services stop mysql@5.7

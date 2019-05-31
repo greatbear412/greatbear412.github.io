@@ -1,0 +1,34 @@
+---
+layout: post
+title: 爬虫实践
+tags: [python, BeautifulSoup]
+---
+## 写在前面 ##
+1. robots.txt文件规定了网站被爬取的容忍度。
+
+## 基本思路 ##
+1. 构建HTTP请求（url，请求头，代理） ————  连接数据库（关闭数据库和关闭链接是不同的） ———— 处理、解析返回的数据 ———— 存入数据库
+2.
+
+## 解放正则--BeautifulSoup ##
+1. 对象可以归纳为4种:
+> Tag：tags
+NavigableString：Tag中的字符串
+BeautifulSoup：文档的全部内容；大部分时候，当作Tag也可以；但没有tag的attribute
+Comment：
+
+2. 先创建解析对象soup
+3. 查找节点：
+```
+soup.findall : 全部
+tag.contents/children : 直接子节点。无子节点时，返回文本
+tag.descendants : 子孙节点。
+
+```
+
+4. 文本处理：
+```
+tag.get_text("|", strip=True)) : 可选参数为分隔标志，是否去空格
+.string(s) : 获取文本
+.stripped_strings ： 去前后空白的文本
+```
