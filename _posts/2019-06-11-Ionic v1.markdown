@@ -1,0 +1,47 @@
+---
+layout: post
+title: ionic v1 和 Angular1
+tags: [ionic]
+---
+## ionic ##
+1. scroll
+```
+<!-- HTML -->
+<ion-scroll>
+  <ul class="list">
+    <li class="item item-toggle" ng-repeat="item in state.scrollItems track by $index" item='item'>
+    </li>
+  </ul>
+
+  //1.将loading部分放在scroll里面    2.distance越大，越早触发
+  <div class="" ng-if="scrollBottom">
+    <ion-infinite-scroll  on-infinite="loadMore()" distance="50%" immediate-check="false"></ion-infinite-scroll>
+  </div>
+</ion-scroll>
+<!-- JS -->
+通过广播来结束加载，也可以监听stateChangeSuccess事件。
+$scope.$broadcast('scroll.infiniteScrollComplete')
+```
+2. list:collection-repeat比ng-repeat有更好的性能。但前者只能接受数组。
+3. 弹出层有：
+
+> Popup：不可改模板，可选类型
+Popover：自定义模板
+Modal：自定义模板，并在触发和隐藏、销毁时分别广播事件
+
+4. 路由传参：
+```
+定义: state里
+传参：1.ui-sref="to({ argName: argValue })"   2.state.go(to, params, options)
+接收：注册$stateParams并接收
+```
+
+## Angular ##
+1.formControl : target.$error.Attribute
+2.filter: 不同的对应不同的数据类型，不匹配时报错．
+```
+filter对应数组，返回的也是数组．
+成员可以是字符串或者对象．
+comparator控制是否完全匹配．
+{{ filter_expression | filter : expression : comparator : anyPropertyKey}}
+```

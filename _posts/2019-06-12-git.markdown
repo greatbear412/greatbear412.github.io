@@ -1,0 +1,35 @@
+---
+layout: post
+title: git
+tags: [git]
+---
+定位修改
+```
+git log -p 文件名 （可查看该文件以前每一次push的修改内容）
+git log - p -1 文件名 （只查看该文件当前这一次的push内容）
+```
+
+查找提交
+```
+git log --since="0 am" &emsp;&emsp;&emsp;     # 查看今日的提交
+git log --author="shfshanyue"     # 查看 shfshanyue 的提交
+git log --grep="#12"              # 查找提交信息中包换关键字的提交
+git log -S "setTimeout"           # 查看提交内容中包换关机子的提交
+```
+
+全局搜索
+```
+git grep <keyword>
+```
+
+全局搜索
+```
+git grep <keyword>
+```
+
+OLDpwd：-
+```
+cd -
+git checkout -
+git merge -
+```
