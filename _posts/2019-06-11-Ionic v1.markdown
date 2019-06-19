@@ -36,7 +36,7 @@ Modal：自定义模板，并在触发和隐藏、销毁时分别广播事件
 接收：注册$stateParams并接收
 ```
 
-## Angular ##
+## AngularJS ##
 1.formControl : target.$error.Attribute
 2.filter: 不同的对应不同的数据类型，不匹配时报错．
 ```
@@ -45,3 +45,60 @@ filter对应数组，返回的也是数组．
 comparator控制是否完全匹配．
 {{ filter_expression | filter : expression : comparator : anyPropertyKey}}
 ```
+3.自定义指令参数:
+```
+.directive('test',function ($interval, $filter,$log) {
+  return {
+    restrict : 'EA',
+    scope: true,
+    replace : false,
+    template : '<div ng-class="{hasTime : time}">{{time}}</div>',
+    link: function (scope,ele,attrs) {
+      function updateTime() {
+        ele.text($filter('date')(new Date(), scope.myFormat));
+      }
+      updateTime();
+      $interval(function() {
+        updateTime();
+      }, 1000);
+    }
+  }
+})
+
+```
+-replace: 是否替换父级
+-require: 引入其他指令的controller。
+```
+? - 不要抛出异常。这使这个依赖变为一个可选项。
+^ - 允许查找父元素的controller
+```
+-scope: 作用域
+```
+true: 创建独立子作用域。父级影响子级，子级不影响父级。
+false: 不。影响，影响。
+{xx: '=TTT'}： 单独控制。父子互不影响。只有该对象里定义的会传入。
+其中，有3种模式。
+@：单向引用父域的值，传递的值必须是字符串且在指令里引用时必须加上{{}}；
+=：双向绑定子域和父域；
+&：单向绑定父域，以便在其中运行函数。
+```
+-link: 操作DOM。有require时有第四个参数。
+```
+// require 'meController'
+link: function(scope, element, attrs, meController){
+   //在这里操作DOM， 可以访问requires指定的控制器
+}
+
+attrs.$observe : 只在link的attrs里发挥作用，检测带有插值标记{{}}的属性值。不带标记的就是初始值，不会变。
+attrs.$observe('class',function (currentValue) {
+                  console.log(currentValue);
+              })
+```
+-transclude:true, //为true时，允许把节点内原来的dom【原封不动】放入template中
+```
+ //<span ng-transclude></span> 原来的dom。你也可以改为div等，但写在里面的东西都会被清空，被原dom替代。
+template:'<div>Hello <span ng-transclude></span> world!</div>'
+```
+-priority：优先级。高的先执行，ng-repeat为1000。
+-terminal: 终点。为true时，优先级小于本指令的优先级的directive都不再执行
+-template, templateUrl

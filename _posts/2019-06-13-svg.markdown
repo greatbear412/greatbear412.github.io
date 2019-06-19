@@ -1,0 +1,32 @@
+---
+layout: post
+title: 把background设置成svg如何
+tags: [background,svg]
+---
+
+### background使用svg ###
+1. 使用svg文件
+1. base64
+1. xml格式
+
+使用XML，可读性最强，修改最方便。
+示例：编码后版本
+```
+ background: url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' %3E%3Cdefs%3E%3Cstyle/%3E%3C/defs%3E%3Cpath fill='%23000' stroke='%23000' d='M 100 300 Q 150 50 200 300 Q 250 550 300 300 Q 350 50 400 300 C 450 550 450 50 500 300 C 550 50 550 550 600 300 A 50 50 0 1 1 700 300'/%3E%3C/svg%3E")no-repeat;
+background-size: 100px 100px;
+```
+
+编码前版本。兼容性考虑，应把其encodeURIComponent后再使用
+```
+background: url("data:image/svg+xml,
+    <svg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' ><defs><style/></defs>
+    <path fill='#000' stroke='#000' d='M 100 300 Q 150 50 200 300 Q 250 550 300 300 Q 350 50 400 300 C 450 550 450 50 500 300 C 550 50 550 550 600 300 A 50 50 0 1 1 700 300'/></svg>") no-repeat;
+background-size: 100px 100px;
+```
+比较重要的是
+```
+fill: 填充色
+stroke: 描边色
+viewBox: 最小X轴数值；最小y轴数值；宽度；高度。视窗大小。越大，“看到的”越小。
+编码。
+```
