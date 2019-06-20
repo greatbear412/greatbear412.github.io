@@ -5,6 +5,7 @@ tags: [ionic]
 ---
 ## ionic ##
 1. scroll
+
 ```
 <!-- HTML -->
 <ion-scroll>
@@ -82,6 +83,7 @@ false: 不。影响，影响。
 =：双向绑定子域和父域；
 &：单向绑定父域，以便在其中运行函数。
 ```
+-compile : 编译DOM。此时link还没有将scope和DOM连接起来。
 -link: 操作DOM。有require时有第四个参数。
 ```
 // require 'meController'
@@ -94,6 +96,14 @@ attrs.$observe('class',function (currentValue) {
                   console.log(currentValue);
               })
 ```
+compile与link的区别
+>函数的作用是对指令的模板进行转换；
+>link的作用是在模型和视图之间建立关联，包括在元素上注册事件监听；
+>compile阶段操作scope会报错
+>对于同一个指令的多个实例，compile会执行一次；而link对于指令的每个实例都会执行一次；
+一般情况下我们只要编写link函数就够了
+>请注意，如果你编写了compile函数，自定义的link函数无效，因为 compile函数应该返回一个link函数供后续处理
+
 -transclude:true, //为true时，允许把节点内原来的dom【原封不动】放入template中
 ```
  //<span ng-transclude></span> 原来的dom。你也可以改为div等，但写在里面的东西都会被清空，被原dom替代。
