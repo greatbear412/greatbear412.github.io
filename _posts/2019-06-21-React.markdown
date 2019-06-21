@@ -1,0 +1,22 @@
+---
+layout: post
+title: React
+tags: [React]
+---
+
+### Basic ###
+- < : xml   { : js
+- 自定义的组件必须首写字母要进行大写，而JSX是小写字母开头的
+- setState : 禁止直接操作state,虽然有的方法也管用,但是在后期的性能优化上会有很多麻烦
+- bind(this)
+- 父传子：父组件向子组件传递内容，靠属性的形式传递
+- 子传父：借助父的方法
+- ref：绑定元素
+### 标签转换 ###
+- for: htmlFor
+- class: className
+### 生命周期 ###
+- should
+- will
+- render
+- did
