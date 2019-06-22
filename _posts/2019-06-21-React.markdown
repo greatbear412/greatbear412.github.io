@@ -15,8 +15,25 @@ tags: [React]
 ### 标签转换 ###
 - for: htmlFor
 - class: className
+
 ### 生命周期 ###
-- should
-- will
+装载：
+- componentWillMount (基本没用)
 - render
-- did
+- componentDidMount （DOM树产生，可以操作DOM）
+- componentWillUnmount
+更新：(当props和state变化时，会执行更新的流程。但有的修改，不会完全按下面的步骤走。)
+- componentWillReceiveProps （当父组件的render执行时，在render里渲染的子组件都会执行此流程，不论props有没有被修改）
+- shouldComponentUpdate （控制）
+- componentWillUpdate 
+- render
+- componentDidUpdate （DOM树更新）
+
+### Redux ###
+- 唯一数据源 
+只有一个Store。树形结构。
+
+- 保持状态只读。
+每次都产生一个新的state，来替代老的state。并没有修改state。
+
+- 数据改变只能通过纯函数 ： Reducer。Reducer的工作就是根据state和action来产生一个新的对象返回。
