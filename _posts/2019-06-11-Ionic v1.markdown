@@ -112,3 +112,22 @@ template:'<div>Hello <span ng-transclude></span> world!</div>'
 -priority：优先级。高的先执行，ng-repeat为1000。
 -terminal: 终点。为true时，优先级小于本指令的优先级的directive都不再执行
 -template, templateUrl
+
+
+4. 模板语法
+- 插值表达式：可以把计算后的字符串插入到 HTML 元素标签内的文本或对标签的属性进行赋值。Angular 对所有双花括号中的表达式求值，把求值的结果转换成字符串，并把它们跟相邻的字符串字面量连接起来。最后，把这个组合出来的插值结果赋给元素或指令的属性。
+- 绑定：除了插值，还可以属性绑定
+```
+<!-- 单向从数据源到视图 -->
+{{expression}}: <img src="{{heroImageUrl}}">
+[target]="expression": <img [src]="heroImageUrl">
+
+<!-- 从视图到数据源的单向绑定 -->
+(target)="statement"
+
+<!-- 双向 -->
+[(target)]="expression"
+ng-model
+
+```
+当数据类型不是字符串时，就必须使用属性绑定；（当指令需要的数据类型不是字符串时，也不能用插值，因为插值返回的是字符串）（[ngif], *ngif）
