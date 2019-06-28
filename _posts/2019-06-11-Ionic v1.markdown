@@ -72,7 +72,7 @@ comparator控制是否完全匹配．
 ```
 ? - 不要抛出异常。这使这个依赖变为一个可选项。
 ^ - 允许查找父元素的controller
-```
+``` 
 -scope: 作用域
 ```
 true: 创建独立子作用域。父级影响子级，子级不影响父级。
@@ -131,3 +131,18 @@ ng-model
 
 ```
 当数据类型不是字符串时，就必须使用属性绑定；（当指令需要的数据类型不是字符串时，也不能用插值，因为插值返回的是字符串）（[ngif], *ngif）
+
+5. 表单验证：form实际上是一个directive，会创建子scope。
+- ng-pattern:"/^(expression)$/" 。不要使用/g。
+- 完整示例 ，注意三点：1. ng-model直接使用变量若获取不到（子scope），使用obj ；2. ng-model-option可按需配置；3.加入ng-pattern验证后，不通过的情况下对应的ng-model值为undefined。 
+```
+<!-- 方案1：blur时检测和提示，则提交按钮不好处理(myForm.$valid的处理) -->
+<!-- 方案2：输入即检测。 -->
+<!-- 方案3：提交时检测。新增变量控制提示文字的ng-show。 -->
+    <form name="myForm">
+        <input type="text" name="testInput" ng-pattern="testReg" ng-model="test.mocccck" ng-model-options="{updateOn: 'blur'}" required>
+        <span ng-show="myForm.testInput.$invalid">验证不通过</span>
+        <button ng-click="submitTest(myForm.$valid)" name="testBtn" style="width: 100px;height:100px;">{{myForm.testInput.$valid}}</button>
+    </form>
+
+```
