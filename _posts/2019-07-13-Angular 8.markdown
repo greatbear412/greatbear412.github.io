@@ -1,0 +1,36 @@
+
+---
+layout: post
+title: Angular 8
+tags: [Angular8]
+---
+1.父子组件：在app.module里注册
+```
+ng generate component hero-detail
+import { AppComponent } from './app.component';
+import { ProductListsComponent } from './components/heroDetail/heroDetail.component';
+import { HeroesComponent } from './components/heroes/heroes.component';
+@NgModule(
+{declarations: [AppComponent,ProductListsComponent,HeroesComponent]
+```
+子组件里,注册Input并注册,来接受赋值
+```
+import { Component, OnInit, Input } from '@angular/core';
+@Input()
+``` 
+hero父组件里直接使用,[]赋值.注意selector.
+```
+<app-heroes [hero]="item"></app-heroes>
+```
+2.服务： providedIn 注入到哪里；哪里引用，哪里引入，并在constructor里注入，然后调用
+```
+ng generate service hero
+import { HeroService } from '../../hero.service';
+constructor(private heroService: HeroService) { };
+getHeroes(): void {this.heroes = this.heroService.getHeroes();}
+```
+3.
+```
+ng generate module app-routing --flat --module=app
+```
+

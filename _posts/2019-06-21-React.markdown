@@ -3,21 +3,26 @@ layout: post
 title: React
 tags: [React]
 ---
+### 组件 ###
+constructor(props):props和state
+生命周期，自定义函数
+render
 
-### Basic ###
+### 组件相关 ###
 - < : xml   { : js
 - 自定义的组件必须首写字母要进行大写，而JSX是小写字母开头的
-- setState : 禁止直接操作state,虽然有的方法也管用,但是在后期的性能优化上会有很多麻烦
-- bind(this)
 - 父传子：父组件向子组件传递内容，靠属性的形式传递
 - 子传父：借助父的方法
 - ref：绑定元素
+- prop是组件的对外接口,state 是组件的内部状态,对外用prop,内部用state
+
 ### 标签转换 ###
 - for: htmlFor
 - class: className
 
 ### 生命周期 ###
 装载：
+- constructor 构造函数，为了初始化state和绑定this。无状态函数就不需要了
 - componentWillMount (基本没用)
 - render
 - componentDidMount （DOM树产生，可以操作DOM）

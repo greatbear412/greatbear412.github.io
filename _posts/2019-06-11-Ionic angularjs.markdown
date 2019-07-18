@@ -3,7 +3,7 @@ layout: post
 title: ionic v1 和 Angular1
 tags: [ionic]
 ---
-## ionic ##
+## ionic ## 
 1. scroll
 
 ```
@@ -13,7 +13,7 @@ tags: [ionic]
     <li class="item item-toggle" ng-repeat="item in state.scrollItems track by $index" item='item'>
     </li>
   </ul>
-
+ 
   //1.将loading部分放在scroll里面    2.distance越大，越早触发
   <div class="" ng-if="scrollBottom">
     <ion-infinite-scroll  on-infinite="loadMore()" distance="50%" immediate-check="false"></ion-infinite-scroll>
@@ -46,7 +46,66 @@ filter对应数组，返回的也是数组．
 comparator控制是否完全匹配．
 {{ filter_expression | filter : expression : comparator : anyPropertyKey}}
 ```
-3.自定义指令参数:
+
+4. 模板语法
+- 插值表达式：可以把计算后的字符串插入到 HTML 元素标签内的文本或对标签的属性进行赋值。Angular 对所有双花括号中的表达式求值，把求值的结果转换成字符串，并把它们跟相邻的字符串字面量连接起来。最后，把这个组合出来的插值结果赋给元素或指令的属性。
+- 绑定：除了插值，还可以属性绑定
+```
+<!-- 单向从数据源到视图 -->
+{{expression}}: <img src="{{heroImageUrl}}">
+[target]="expression": <img [src]="heroImageUrl">
+
+<!-- 从视图到数据源的单向绑定 -->
+(target)="statement"
+
+<!-- 双向 -->
+[(target)]="expression"
+ng-model
+
+```
+当数据类型不是字符串时，就必须使用属性绑定；（当指令需要的数据类型不是字符串时，也不能用插值，因为插值返回的是字符串）（[ngif], *ngif）
+
+5. 表单验证：form实际上是一个directive，会创建子scope。
+- ng-pattern:"/^(expression)$/" 。不要使用/g。
+- 完整示例 ，注意三点：1. ng-model直接使用变量若获取不到（子scope），使用obj ；2. ng-model-option可按需配置；3.加入ng-pattern验证后，不通过的情况下对应的ng-model值为undefined。 
+```
+<!-- 方案1：blur时检测和提示，则提交按钮不好处理(myForm.$valid的处理) -->
+<!-- 方案2：输入即检测。 -->
+<!-- 方案3：提交时检测。新增变量控制提示文字的ng-show。 -->
+    <form name="myForm">
+        <input type="text" name="testInput" ng-pattern="testReg" ng-model="test.mocccck" ng-model-options="{updateOn: 'blur'}" required>
+        <span ng-show="myForm.testInput.$invalid">验证不通过</span>
+        <button ng-click="submitTest(myForm.$valid)" name="testBtn" style="width: 100px;height:100px;">{{myForm.testInput.$valid}}</button>
+    </form>
+
+```
+
+6. 生命周期：onEnter 和 onExit。onViewLoading等事件适用于ng-route，不适用ui-route。
+7. cache: 当前状态的缓存，当刷新或初始化等时就丢失。我将其分为$http内和外两种。
+```
+//普通使用：注入$cacheFactory，有get、put等方法。
+(function () {
+    angular.module("Demo", [])
+    .controller("testCtrl", ["$cacheFactory",testCtrl]);
+    function testCtrl($cacheFactory) {
+       var myCache = $cacheFactory("my-cache");
+       myCache.put("cache", "This is cache-content");
+       myCache.put("another-cache", "This is another cache-content");
+       var getCache = myCache.get("cache"); //This is cache-content
+       var getInfo = myCache.info();//{id: "my-cache", size: 2}
+       myCache.remove("another-cache");
+       getInfo = myCache.info();//{id: "my-cache", size: 1}
+       myCache.removeAll();
+       getInfo = myCache.info();//{id: "my-cache", size: 0}
+       myCache.destroy();
+       getInfo = myCache.info();//{size: 0}
+    };
+  }());
+
+  //$http使用: 仅GET和JSONP会触发；当配置了cache时，对于相同的URL（拼接参数之后的），不再发出请求，而是使用缓存的值并返回。
+  
+```
+### Directive ###:
 ```
 .directive('test',function ($interval, $filter,$log) {
   return {
@@ -113,36 +172,5 @@ template:'<div>Hello <span ng-transclude></span> world!</div>'
 -terminal: 终点。为true时，优先级小于本指令的优先级的directive都不再执行
 -template, templateUrl
 
+### Components ###
 
-4. 模板语法
-- 插值表达式：可以把计算后的字符串插入到 HTML 元素标签内的文本或对标签的属性进行赋值。Angular 对所有双花括号中的表达式求值，把求值的结果转换成字符串，并把它们跟相邻的字符串字面量连接起来。最后，把这个组合出来的插值结果赋给元素或指令的属性。
-- 绑定：除了插值，还可以属性绑定
-```
-<!-- 单向从数据源到视图 -->
-{{expression}}: <img src="{{heroImageUrl}}">
-[target]="expression": <img [src]="heroImageUrl">
-
-<!-- 从视图到数据源的单向绑定 -->
-(target)="statement"
-
-<!-- 双向 -->
-[(target)]="expression"
-ng-model
-
-```
-当数据类型不是字符串时，就必须使用属性绑定；（当指令需要的数据类型不是字符串时，也不能用插值，因为插值返回的是字符串）（[ngif], *ngif）
-
-5. 表单验证：form实际上是一个directive，会创建子scope。
-- ng-pattern:"/^(expression)$/" 。不要使用/g。
-- 完整示例 ，注意三点：1. ng-model直接使用变量若获取不到（子scope），使用obj ；2. ng-model-option可按需配置；3.加入ng-pattern验证后，不通过的情况下对应的ng-model值为undefined。 
-```
-<!-- 方案1：blur时检测和提示，则提交按钮不好处理(myForm.$valid的处理) -->
-<!-- 方案2：输入即检测。 -->
-<!-- 方案3：提交时检测。新增变量控制提示文字的ng-show。 -->
-    <form name="myForm">
-        <input type="text" name="testInput" ng-pattern="testReg" ng-model="test.mocccck" ng-model-options="{updateOn: 'blur'}" required>
-        <span ng-show="myForm.testInput.$invalid">验证不通过</span>
-        <button ng-click="submitTest(myForm.$valid)" name="testBtn" style="width: 100px;height:100px;">{{myForm.testInput.$valid}}</button>
-    </form>
-
-```
