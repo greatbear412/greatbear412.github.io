@@ -4,41 +4,54 @@ title: React
 tags: [React]
 ---
 ### 组件 ###
-constructor(props):props和state
-生命周期，自定义函数
+constructor(props): props和state
+生命周期,自定义函数
 render
 
 ### 组件相关 ###
-- < : xml   { : js
-- 自定义的组件必须首写字母要进行大写，而JSX是小写字母开头的
-- 父传子：父组件向子组件传递内容，靠属性的形式传递
-- 子传父：借助父的方法
-- ref：绑定元素
+- <: xml   {: js
+- 自定义的组件必须首写字母要进行大写,而JSX是小写字母开头的
+- 父传子: 父组件向子组件传递内容,靠属性的形式传递
+- 子传父: 借助父的方法
 - prop是组件的对外接口,state 是组件的内部状态,对外用prop,内部用state
+- 当一个包含 ref 属性的组件完成装载（ mount ）过程的时候，会看一看 ref 属性是不是一个函数，如果是，就会调用这个函数，参数就是这个组件代表的 DOM 元素 注意，DOM 元素，不是 Virtual DOM 元素，通过这种方法，我们的代码可以访问到实际的DOM 元素
 
 ### 标签转换 ###
 - for: htmlFor
 - class: className
 
 ### 生命周期 ###
-装载：
-- constructor 构造函数，为了初始化state和绑定this。无状态函数就不需要了
+装载: - constructor 构造函数,为了初始化state和绑定this.无状态函数就不需要了
 - componentWillMount (基本没用)
-- render
-- componentDidMount （DOM树产生，可以操作DOM）
+- render 仅这一个,React没有默认实现,所以必须手写.让render函数返回一个null或者false,等于告诉React,这个组件这次不需要渲染任何 DOM 元素
+需要注意, render 函数
+- componentDidMount (DOM树产生,可以操作DOM)
 - componentWillUnmount
-更新：(当props和state变化时，会执行更新的流程。但有的修改，不会完全按下面的步骤走。)
-- componentWillReceiveProps （当父组件的render执行时，在render里渲染的子组件都会执行此流程，不论props有没有被修改）
-- shouldComponentUpdate （控制）
+更新: (当props和state变化时,会执行更新的流程.但有的修改,不会完全按下面的步骤走.)
+- componentWillReceiveProps (当父组件的render执行时,在render里渲染的子组件都会执行此流程,不论props有没有被修改)
+- shouldComponentUpdate (控制)
 - componentWillUpdate 
 - render
-- componentDidUpdate （DOM树更新）
+- componentDidUpdate (DOM树更新)
 
 ### Redux ###
 - 唯一数据源 
-只有一个Store。树形结构。
+只有一个Store.树形结构.
 
-- 保持状态只读。
-每次都产生一个新的state，来替代老的state。并没有修改state。
+- 保持状态只读.
+每次都产生一个新的state,来替代老的state.并没有修改state.
 
-- 数据改变只能通过纯函数 ： Reducer。Reducer的工作就是根据state和action来产生一个新的对象返回。
+- 数据改变只能通过纯函数: Reducer.Reducer的工作就是根据state和action来产生一个新的对象返回.
+
+### 文件结构 ###
+- ActionType: 初步定义()
+- Actions: 引入ActionTypes,定义type对应的action,规定参数(必须手动传,从store获取不到的)
+- Reducer: 不能直接修改state（数组只读，只能通过派发Action）。引入ActionTypes,更新state
+- JSX使用: 引入Actions,获取数据store.getState(),初始化state(if need).同步数据: componentDidMount订阅,componentWillUnmount取消订阅.修改数据派发Actions: store.dispatch(actions(参数))
+- Provider: 提供store的context
+
+redux:state在很多時候就是store了。
+- function 构造函数({props里面已经有的，或者下面两个函数添加到props的}){}
+- function mapStateToProps(state：store,ownProps：参数对象)
+- function mapDispatchToProps(dispatch, ownProps)
+- connect：connect就是做了两件事：把Store上的状态，转化为内层组件的props；并且把内层组件的用户动作转化为派发的Actions。
