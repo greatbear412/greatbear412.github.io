@@ -14,7 +14,7 @@ render
 - 父传子: 父组件向子组件传递内容,靠属性的形式传递
 - 子传父: 借助父的方法
 - prop是组件的对外接口,state 是组件的内部状态,对外用prop,内部用state
-- 当一个包含 ref 属性的组件完成装载（ mount ）过程的时候，会看一看 ref 属性是不是一个函数，如果是，就会调用这个函数，参数就是这个组件代表的 DOM 元素 注意，DOM 元素，不是 Virtual DOM 元素，通过这种方法，我们的代码可以访问到实际的DOM 元素
+- 当一个包含 ref 属性的组件完成装载( mount )过程的时候,会看一看 ref 属性是不是一个函数,如果是,就会调用这个函数,参数就是这个组件代表的 DOM 元素 注意,DOM 元素,不是 Virtual DOM 元素,通过这种方法,我们的代码可以访问到实际的DOM 元素
 
 ### 标签转换 ###
 - for: htmlFor
@@ -46,12 +46,12 @@ render
 ### 文件结构 ###
 - ActionType: 初步定义()
 - Actions: 引入ActionTypes,定义type对应的action,规定参数(必须手动传,从store获取不到的)
-- Reducer: 不能直接修改state（数组只读，只能通过派发Action）。引入ActionTypes,更新state
+- Reducer: 不能直接修改state(数组只读,只能通过派发Action).引入ActionTypes,更新state
 - JSX使用: 引入Actions,获取数据store.getState(),初始化state(if need).同步数据: componentDidMount订阅,componentWillUnmount取消订阅.修改数据派发Actions: store.dispatch(actions(参数))
 - Provider: 提供store的context
 
-redux:state在很多時候就是store了。
-- function 构造函数({props里面已经有的，或者下面两个函数添加到props的}){}
-- function mapStateToProps(state：store,ownProps：参数对象)
+redux: state在很多時候就是store了.
+- function 构造函数({props里面已经有的,或者下面两个函数添加到props的}){}
+- function mapStateToProps(state: store,ownProps: 参数对象)
 - function mapDispatchToProps(dispatch, ownProps)
-- connect：connect就是做了两件事：把Store上的状态，转化为内层组件的props；并且把内层组件的用户动作转化为派发的Actions。
+- connect: connect就是做了两件事: 把Store上的状态,转化为内层组件的props；并且把内层组件的用户动作转化为派发的Actions.
