@@ -3,7 +3,7 @@ layout: post
 title: ionic v1 和 Angular1
 tags: [ionic]
 ---
-## ionic ## 
+### ionic ###
 1. scroll
 
 ```
@@ -72,12 +72,30 @@ ng-model
 ```
 6. 路由
 生命周期: onEnter 和 onExit.onViewLoading等事件适用于ng-route,不适用ui-route.
-ui-router: viewContentLoading - $viewContentAnimationEnded(页面切换动画结束,有DOM) - viewContentLoaded(有DOM).
-传参: ```
-定义: state里
+ui-router: viewContentLoading - `$viewContentAnimationEnded`(页面切换动画结束,有DOM) - viewContentLoaded(有DOM).
+
+传参时，定义在: state里
 传参: 1.ui-sref="to({ argName: argValue })"   2.state.go(to, params, options)
 接收: 注册$stateParams并接收
+
+viewName + '@' + stateName：state和view的搭配定制，子可配置父。父子冲突时，以子为准。
 ```
+views: {
+    // 模板内容会被安插在父路由(contacts)模板的匿名视图下
+    '@contacts': {
+        
+    },
+    // 模板内容会被安插在根路由(index.html)模板的名为hint视图下
+    'hint@': {
+       
+    },
+    // 模板内容会被安插在父路由(contacts)模板的名为menuTip视图下
+    'menuTip@contacts': {
+            }]
+    }
+}
+```
+resolve:依赖项，注入到controller里。须返回promise对象。子可调用父的。
 其他: autoscroll,loadFunc(？)
 7. cache: 当前状态的缓存,当刷新或初始化等时就丢失.我将其分为$http内和外两种.
 ```
@@ -103,7 +121,8 @@ ui-router: viewContentLoading - $viewContentAnimationEnded(页面切换动画结
   //$http使用: 仅GET和JSONP会触发；当配置了cache时,对于相同的URL(拼接参数之后的),不再发出请求,而是使用缓存的值并返回.
   
 ```
-### Directive ###: ```
+### Directive ###
+```
 .directive('test',function ($interval, $filter,$log) {
   return {
     restrict: 'EA',

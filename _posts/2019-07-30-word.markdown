@@ -1,0 +1,24 @@
+
+---
+layout: post
+title: 一句话
+tags: [一句话]
+---
+1. 嵌套**iframe**：点击后退时，先执行iframe的“后退”，再执行父页面的。如果iframe的src被修改，那么经历两步：先后退至上一个src的状态。
+2. **babel**转换typeof为_typeof:
+```
+  "presets": [
+    ["env", {
+      "exclude": ["transform-es2015-typeof-symbol"] //或者transform-typeof-symbol
+    }]
+  ]
+```
+3. **gulp-babel**的babelrc配置不对或无效时，gulp.pipe(babel())不会报错，但dest也不会生成文件。
+4. HTML5新增的dom对象属性，获取data-XXX形式的属性值，返回一个DOMStringMap。
+如下，只能获取到data-xyj。
+```
+<div jyx='test' data-xyj='test123'>
+新增: el.dataset.XX = 'XXX'
+删除: delete el.dataset.XX
+```
+
