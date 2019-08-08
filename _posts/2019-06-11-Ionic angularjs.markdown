@@ -188,5 +188,94 @@ template: '<div>Hello <span ng-transclude></span> world!</div>'
 -terminal: 终点.为true时,优先级小于本指令的优先级的directive都不再执行
 -template, templateUrl
 
-### Components ###
+### 服务：提供一个模块级对象 ###
+1. **factory** 方式创建的服务，作用就是返回一个有属性有方法的对象。相当于：var f = myFactory();
+```
+	var app = angular.module('myApp', []);
+	app.factory('myFactory', function($http,$q) {
+		var service = {};
+		service.name = "张三";
+		//请求数据
+		service.getData = function(){
+			var d = $q.defer();
+			$http.get("url")//读取数据的函数。
+			.success(function(response) {
+				d.resolve(response);
+			})
+			.error(function(){
+				d.reject("error");
+			});
+			return d.promise;
+		}		
+		return service;
+	});
+	app.controller('myCtrl', function($scope, myFactory) {
+		//alert(myFactory.name);
+		myFactory.getData().then(function(data){
+			console.log(data);//正确时走这儿
+		},function(data){
+			alert(data)//错误时走这儿
+		});
+	});
+```
+
+2. 通过 **service** 方式创建自定义服务，相当于 new 的一个对象：var s = new myService();，只要把属性和方法添加到 this 上才可以在 controller 里调用。
+```
+<script>
+	var app = angular.module('myApp', []);
+	app.service('myService', function($http,$q) {
+		this.name = "service";
+		this.myFunc = function (x) {
+			return x.toString(16);//转16进制
+		}
+	});
+	app.controller('myCtrl', function($scope, myService) {
+		$scope.r = myService.myFunc(255);
+	});
+</script>
+```
+
+3. 只有 **provider** 是能传 .config() 函数的 service。如果想在 service 对象启用之前，先进行模块范围的配置，那就应该选择 provider。需要注意的是：在 config 函数里注入 provider 时，名字应该是：**providerName+Provider**.
+使用 Provider 的优点就是，你可以在 Provider 对象传递到应用程序的其他部分之前在 app.config 函数中对其进行修改。
+当你使用 Provider 创建一个 service 时，唯一的可以在你的控制器中访问的属性和方法是通过 $get() 函数返回内容。
+```
+<script>
+	var app = angular.module('myApp', []);
+
+	//需要注意的是：在注入provider时，名字应该是：providerName+Provider	
+	app.config(function(myProviderProvider){
+		myProviderProvider.setName("大圣");		
+	});
+	app.provider('myProvider', function() {
+		var name="";
+		var test={"a":1,"b":2};
+		//注意的是，setter方法必须是(set+变量首字母大写)格式
+		this.setName = function(newName){
+			name = newName	
+		}
+		
+		this.$get =function($http,$q){
+			return {
+				getData : function(){
+					var d = $q.defer();
+					$http.get("url")//读取数据的函数。
+					return d.promise;
+				},
+				"lastName":name,
+				"test":test
+			}	
+		}
+		
+	});
+	app.controller('myCtrl', function($scope,myProvider) {
+		alert(myProvider.lastName);
+		alert(myProvider.test.a)
+		myProvider.getData().then(function(data){
+			//alert(data)
+		},function(data){
+			//alert(data)
+		});
+	});
+</script>
+```
 
