@@ -55,3 +55,21 @@ redux: state在很多時候就是store了.
 - function mapStateToProps(state: store,ownProps: 参数对象)
 - function mapDispatchToProps(dispatch, ownProps)
 - connect: connect就是做了两件事: 把Store上的状态,转化为内层组件的props；并且把内层组件的用户动作转化为派发的Actions.
+
+### 高阶组件 ###
+需要注意，在代理方式下WrappedComponent 经历了一个完整的生命周期，但在继承方式下super.render 只是一个生命周期中的一个函数而已；在代理方式下产生的新组件和参数组件是两个不同的组件，一次渲染，两个组件都要经历各自的生命周期，在继承方式下两者合二为一，只有一个生命周期。
+
+### 异步 ###
+通过中间件来增强Dispatch。原理是在dispatch的动作从Actions到Reducer之间做动作。因为异步函数不会到Reducer了，所以逻辑都写在了Action里。
+```
+export const sampleAsyncAction = () => {
+    //这个新的函数可以有两个参数dispatch 和getState ，分别代表Redux 唯一的Store 上的成员函数 dispatch 和getState
+    //这两个参数的传人是redux-thunk 中间件的工作
+
+    return (dispatch, getState) => {
+    ／／在这个函数里可以调用异步函数，自行决定在合适的时机通过dispatch参数
+    ／／派发出新的action 对象。
+    }
+
+}
+```
