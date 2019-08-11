@@ -21,4 +21,5 @@ tags: [一句话]
 新增: el.dataset.XX = 'XXX'
 删除: delete el.dataset.XX
 ```
+5. 字符串陷阱：为什么console里明明是null,0,false这些东西，if或者?还是走了true的方向？因为它们是'null','0','false'。
 

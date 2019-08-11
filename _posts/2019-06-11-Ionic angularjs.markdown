@@ -5,7 +5,6 @@ tags: [ionic]
 ---
 ### ionic ###
 1. scroll
-
 ```
 <!-- HTML -->
 <ion-scroll>
@@ -40,7 +39,7 @@ comparator控制是否完全匹配．
 
 4. 模板语法
 - 插值表达式: 可以把计算后的字符串插入到 HTML 元素标签内的文本或对标签的属性进行赋值.Angular 对所有双花括号中的表达式求值,把求值的结果转换成字符串,并把它们跟相邻的字符串字面量连接起来.最后,把这个组合出来的插值结果赋给元素或指令的属性.
-- 绑定: 除了插值,还可以属性绑定
+- 绑定: 除了插值,还可以属性绑定:
 ```
 <!-- 单向从数据源到视图 -->
 {{expression}}: <img src="{{heroImageUrl}}">
@@ -278,4 +277,130 @@ template: '<div>Hello <span ng-transclude></span> world!</div>'
 	});
 </script>
 ```
+
+### $q ###
+
+1. $q constructor:
+```
+	let promise = $q((resolve,reject)=>{
+		if(){
+			resolve(sth)
+		}
+		else{
+			reject(sth)
+		}
+	})
+	promise.then(success,fail)
+```
+
+2. $http:
+```
+$http.get/post('/someUrl', config).then(successCallback, errorCallback);
+$http.get/post().success().error()
+```
+
+3. $q.all(): array or object
+```
+let promiseOne = $http.get('/api/todos');
+let promiseTwo = $http.get('/api/comments');
+
+// Array of Promises
+$q.all([promiseOne, promiseTwo]).then(data => {
+  console.log('Both promises have resolved', data);
+});
+
+// Object hash of Promises
+// this is ES2015 shorthand for { promiseOne: promiseOne, promiseTwo: promiseTwo }
+$q.all({
+    promiseOne,
+    promiseTwo
+  }).then(data => {
+  console.log('Both promises have resolved', data);
+});
+```
+
+4. $q.race(): only one return
+```
+let promiseOne = $http.get('/api/todos');
+let promiseTwo = $http.get('/api/comments');
+
+// Array of Promises
+$q.race([promiseOne, promiseTwo]).then(data => {
+  console.log('Fastest wins, who will it be?...', data);
+});
+
+// Object hash of Promises
+// this is ES2015 shorthand for { promiseOne: promiseOne, promiseTwo: promiseTwo }
+$q.race({
+    promiseOne,
+    promiseTwo
+  }).then(data => {
+  console.log('Fastest wins, who will it be?...', data);
+});
+```
+
+另：在Controller里调用$http会使代码越来越不清晰，所以比较好的办法是将这些异步取数据的操作封装成Service，管理也方便，然后也可以简洁的通过Service来调用。
+但是最好的方案是在router里resolve进去：*先拿到数据，再实例化Controller*。这时，要返回给router里的resolve的，是一个Promise
+```
+$stateProvider
+  .state('inbox', {
+    ...
+    // Use an Object as the value of `resolve`
+    resolve: {
+      // create an Object property called "messages" which will later be used for Dependency Injection
+      // inside our Controller. Inject any Services we need as usual.
+      messages: function (InboxService) {
+        // Return our Service call, that returns a Promise
+        return InboxService.getMessages();
+		return $http.get('/messages').then(function (response) {
+					return response.data;
+				});
+		<!-- 如果你不像上面这样指定promise里的success和err里返回data的方式，那默认会直接返回data -->
+		return $http.get('/messages') 
+		||
+		return $http.get('/messages').then((data)=>{
+			return data
+		},(err){
+			return err
+		})
+      }
+    }
+  });
+```
+
+另: `$http.post`, `$http.post.then`等等，返回的都是Promise对象，这两个对象相比：后者有success和error方法，前者没有。但都是Promise对象。
+```
+let myHttp = $http.post() //像这样子声明，那么此时请求 已经发送 ,只是没有处理返回的数据。
+```
+
+像上面的“最佳”实践，还可以进一步优化。
+```
+// InboxCtrl.js
+function InboxCtrl(messages) {
+  this.messages = messages;
+}
+
+InboxCtrl.resolve = {
+  messages: function (InboxService) {
+    return InboxService.getMessages();
+  }
+}
+
+angular
+  .module('app')
+  .controller('InboxCtrl', InboxCtrl);
+```
+
+router.js:
+
+```
+$stateProvider
+  .state('inbox', {
+    url: '/inbox',
+    templateUrl: 'partials/inbox.html',
+    controller: 'InboxCtrl as vm',
+    resolve: InboxCtrl.resolve
+  });
+```
+这样就能在controller里直接看到data，不需要再去router里查找data到底是啥意思。但记得要利用变量提升(ctrl 和 ctrl.resolve)
 

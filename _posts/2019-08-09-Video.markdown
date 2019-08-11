@@ -1,0 +1,42 @@
+
+---
+layout: post
+title: Video：你动起来真好看
+tags: [Video]
+---
+### 前言 ###
+ - 同内容的GIF比video更消耗资源。
+ - IOS在之前对用户手势的动作要求：只有这几种可以触发video.play,可以让视频在IOS上动起来。
+touchend, click, doubleclick, or keydown event. So, button.addEventListener('click', () => { video.play(); }) would satisfy the user gesture requirement. video.addEventListener('canplaythrough', () => { video.play(); }) would not.
+ - 控制：自动播放，无手势的播放、暂停，data、metadata、buffer、seek等事件监听
+ - 样式：播放控件，全屏，横竖屏
+
+### 现状-IOS ###
+ - 从IOS10开始，放宽了对于autoplay的限制。
+
+> but still keeps in mind sites 'andwidth and users'batteries
+
+ - autoplay:
+ ```
+ 1. 支持autoplay属性
+ <video> 的source不包含audio track时，允许autoplay
+ <video muted> 也可以在不需要用户手势的情况下自动播放
+ <video> 元素如果得到了audio track，或者unmuted了，autoplay就会停止
+ <video autoplay> 元素只有可见状态会自动播放。elements will only begin playing when visible on-screen such as when they are scrolled into the viewport, made visible through CSS, and inserted into the DOM.
+ <video autoplay> 自动播放的元素变为不可见状态时会暂停。elements will pause if they become non-visible, such as by being scrolled out of the viewport.（后两条包含两个信息：可视区域内不可见，不可视区域）
+ 
+ 2. 支持play()方法
+ 同样，不包含audio track或有muted属性的video可以触发play()
+ 当video不在可视状态时，可以触发play()
+ play()返回promise，当不满足上述条件时会暂停
+ 
+ 3.<video playsinline> 使元素不再自动进入全屏
+ ```
+
+### 现状-Android ###
+- 不好做。
+- 全屏 webkit-playsinline="true"；
+- autoplay：必须由用户触发gesture后，调用video.play()才可以。
+- 
+
+
