@@ -72,7 +72,9 @@ ng-model
 6. 路由
 生命周期: onEnter 和 onExit.onViewLoading等事件适用于ng-route,不适用ui-route.
 ui-router: viewContentLoading - `$viewContentAnimationEnded`(页面切换动画结束,有DOM) - viewContentLoaded(有DOM).
-
+```
+$scope.$watch('$viewContentLoaded', function(){});
+```
 传参时，定义在: state里
 传参: 1.ui-sref="to({ argName: argValue })"   2.state.go(to, params, options)
 接收: 注册$stateParams并接收
@@ -153,7 +155,7 @@ true: 创建独立子作用域.父级影响子级,子级不影响父级.
 false: 不.影响,影响.
 {xx: '=TTT'}: 单独控制.父子互不影响.只有该对象里定义的会传入.
 其中,有3种模式.
-@: 单向引用父域的值,传递的值必须是字符串且在指令里引用时必须加上{{}}；
+@: 单向引用父域的值,传递的值必须是字符串且在指令里引用时必须加上{{}}；
 =: 双向绑定子域和父域；
 &: 单向绑定父域,以便在其中运行函数.
 ```
@@ -352,17 +354,17 @@ $stateProvider
       messages: function (InboxService) {
         // Return our Service call, that returns a Promise
         return InboxService.getMessages();
-		return $http.get('/messages').then(function (response) {
-					return response.data;
-				});
-		<!-- 如果你不像上面这样指定promise里的success和err里返回data的方式，那默认会直接返回data -->
-		return $http.get('/messages') 
-		||
-		return $http.get('/messages').then((data)=>{
-			return data
-		},(err){
-			return err
-		})
+		        return $http.get('/messages').then(function (response) {
+					    return response.data;
+				    });
+        <!-- 如果你不像上面这样指定promise里的success和err里返回data的方式，那默认会直接返回data -->
+        return $http.get('/messages') 
+        ||
+        return $http.get('/messages').then((data)=>{
+          return data
+        },(err){
+          return err
+        })
       }
     }
   });
