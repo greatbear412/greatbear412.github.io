@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: Hash和History：单页路由的两种模式
